@@ -37,5 +37,31 @@ namespace MathClasses
             return new Vector3(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
         }
 
+        // defines op for multiplying the first Vector3 by a float number
+        public static Vector3 operator *(Vector3 lhs, float multiplyBy)
+        {
+            return new Vector3(lhs.x * multiplyBy, lhs.y * multiplyBy, lhs.z * multiplyBy);
+        }
+        
+        // defines op for multiplying the second Vector3 by a float number
+        public static Vector3 operator *(float multiplyBy, Vector3 rhs)
+        {
+            return new Vector3(rhs.x * multiplyBy, rhs.y * multiplyBy, rhs.z * multiplyBy);
+        }
+
+        // method for getting mag of vector3
+        public float Magnitude()
+        {
+            return (float)Math.Sqrt(x * x + y * y + z * z);
+        }
+
+        // method for normalizing the mag
+        public void Normalize()
+        {
+            float m = Magnitude();
+            this.x /= m;
+            this.y /= m;
+            this.z /= m;
+        }
     }
 }
