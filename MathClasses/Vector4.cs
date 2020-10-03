@@ -65,5 +65,19 @@ namespace MathClasses
             this.w /= m;
         }
 
+        public float Dot(Vector4 rhs)
+        {
+            return x * rhs.x + y * rhs.y + z * rhs.z + w * rhs.w;
+        }
+
+        // method to get cross product of two Vector4
+        public Vector4 Cross(Vector4 rhs)
+        {
+            return new Vector4(
+                y * rhs.z - z * rhs.y,
+                z * rhs.x - x * rhs.z,
+                x * rhs.y - y * rhs.x, 
+                0f * rhs.w);
+        }
     }
 }

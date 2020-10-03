@@ -48,7 +48,18 @@ namespace MathClasses
         {
             return new Vector3(rhs.x * multiplyBy, rhs.y * multiplyBy, rhs.z * multiplyBy);
         }
+        
+        // defines op for dividing the first Vector3 by a float number
+        public static Vector3 operator /(Vector3 lhs, float divideBy)
+        {
+            return new Vector3(lhs.x / divideBy, lhs.y / divideBy, lhs.z / divideBy);
+        }
 
+        // defines op for dividing the second Vector3 by a float number
+        public static Vector3 operator /(float divideBy, Vector3 rhs)
+        {
+            return new Vector3(rhs.x / divideBy, rhs.y / divideBy, rhs.z / divideBy);
+        }
         // method for getting mag of vector3
         public float Magnitude()
         {
@@ -63,5 +74,24 @@ namespace MathClasses
             this.y /= m;
             this.z /= m;
         }
+
+        public Vector3 GetNormalised()
+        {
+            return this / Magnitude();
+        }
+
+
+        // method to get dot prodcut of two Vector3
+        public float Dot(Vector3 rhs)
+        {
+            return x * rhs.x + y * rhs.y + z * rhs.z;
+        }
+
+        // method to get cross product of two Vector3
+        public Vector3 Cross(Vector3 rhs)
+        {
+            return new Vector3(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x);
+        }
+
     }
 }
