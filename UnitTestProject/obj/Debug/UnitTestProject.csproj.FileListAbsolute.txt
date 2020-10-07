@@ -1,0 +1,2 @@
+C:\Users\larry\OneDrive\Desktop\MathForGames\MathAssessment\C# Unit Test - Student Copy\UnitTestProject\obj\Debug\UnitTestProject.csprojAssemblyReference.cache
+C:\Users\larry\OneDrive\Desktop\MathForGames\MathAssessment\C# Unit Test - Student Copy\UnitTestProject\obj\Debug\UnitTestProject.csproj.CoreCompileInputs.cache

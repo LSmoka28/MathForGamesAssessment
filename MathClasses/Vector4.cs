@@ -49,6 +49,18 @@ namespace MathClasses
             return new Vector4(rhs.x * multiplyBy, rhs.y * multiplyBy, rhs.z * multiplyBy, rhs.w * multiplyBy);
         }
 
+        // defines op for dividing the first Vector4 by a float number
+        public static Vector4 operator /(Vector4 lhs, float divideBy)
+        {
+            return new Vector4(lhs.x / divideBy, lhs.y / divideBy, lhs.z / divideBy, lhs.w / divideBy);
+        }
+
+        // defines op for dividing the second Vector4 by a float number
+        public static Vector4 operator /(float divideBy, Vector4 rhs)
+        {
+            return new Vector4(rhs.x / divideBy, rhs.y / divideBy, rhs.z / divideBy, rhs.w / divideBy);
+        }
+
         // method for getting mag of vector4
         public float Magnitude()
         {
@@ -64,6 +76,11 @@ namespace MathClasses
             this.z /= m;
             this.w /= m;
         }
+        public Vector4 GetNormalised()
+        {
+            return this / Magnitude();
+        }
+
 
         public float Dot(Vector4 rhs)
         {
