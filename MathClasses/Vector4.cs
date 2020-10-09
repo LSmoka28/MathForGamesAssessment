@@ -28,39 +28,65 @@ namespace MathClasses
         // operator for adding two Vector4 
         public static Vector4 operator +(Vector4 lhs, Vector4 rhs)
         {
-            return new Vector4(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w);
+            return new Vector4(lhs.x + rhs.x, 
+                               lhs.y + rhs.y, 
+                               lhs.z + rhs.z, 
+                               lhs.w + rhs.w);
         }
         
         // operator for subtracting two Vector4 
         public static Vector4 operator -(Vector4 lhs, Vector4 rhs)
         {
-            return new Vector4(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w);
+            return new Vector4(lhs.x - rhs.x, 
+                               lhs.y - rhs.y, 
+                               lhs.z - rhs.z, 
+                               lhs.w - rhs.w);
         }
        
         // defines op for multiplying the first Vector4 by a float number
         public static Vector4 operator *(Vector4 lhs, float multiplyBy)
         {
-            return new Vector4(lhs.x * multiplyBy, lhs.y * multiplyBy, lhs.z * multiplyBy, lhs.w * multiplyBy);
+            return new Vector4(lhs.x * multiplyBy, 
+                               lhs.y * multiplyBy, 
+                               lhs.z * multiplyBy, 
+                               lhs.w * multiplyBy);
         }
 
         // defines op for multiplying the first Vector4 by a float number
         public static Vector4 operator *(float multiplyBy, Vector4 rhs)
         {
-            return new Vector4(rhs.x * multiplyBy, rhs.y * multiplyBy, rhs.z * multiplyBy, rhs.w * multiplyBy);
+            return new Vector4(rhs.x * multiplyBy, 
+                               rhs.y * multiplyBy, 
+                               rhs.z * multiplyBy, 
+                               rhs.w * multiplyBy);
         }
 
         // defines op for dividing the first Vector4 by a float number
         public static Vector4 operator /(Vector4 lhs, float divideBy)
         {
-            return new Vector4(lhs.x / divideBy, lhs.y / divideBy, lhs.z / divideBy, lhs.w / divideBy);
+            return new Vector4(lhs.x / divideBy, 
+                               lhs.y / divideBy, 
+                               lhs.z / divideBy, 
+                               lhs.w / divideBy);
         }
 
         // defines op for dividing the second Vector4 by a float number
         public static Vector4 operator /(float divideBy, Vector4 rhs)
         {
-            return new Vector4(rhs.x / divideBy, rhs.y / divideBy, rhs.z / divideBy, rhs.w / divideBy);
+            return new Vector4(rhs.x / divideBy, 
+                               rhs.y / divideBy, 
+                               rhs.z / divideBy, 
+                               rhs.w / divideBy);
         }
 
+        // defines op for multiplying vector by matrix
+        public static Vector4 operator *(Matrix4 lhs, Vector4 rhs)
+        {
+            return new Vector4((lhs.m1 * rhs.x) + (lhs.m2 * rhs.y) + (lhs.m3 * rhs.z) + (lhs.m4 * rhs.w),
+                               (lhs.m5 * rhs.x) + (lhs.m6 * rhs.y) + (lhs.m7 * rhs.z) + (lhs.m8 * rhs.w),
+                               (lhs.m9 * rhs.x) + (lhs.m10 * rhs.y) + (lhs.m11 * rhs.z) + (lhs.m12 * rhs.w),
+                               (lhs.m13 * rhs.x) + (lhs.m14 * rhs.y) + (lhs.m15 * rhs.z) + (lhs.m16 * rhs.w));
+        }
         // method for getting mag of vector4
         public float Magnitude()
         {
@@ -94,7 +120,7 @@ namespace MathClasses
                 y * rhs.z - z * rhs.y,
                 z * rhs.x - x * rhs.z,
                 x * rhs.y - y * rhs.x, 
-                0f * rhs.w);
+                0f);
         }
     }
 }

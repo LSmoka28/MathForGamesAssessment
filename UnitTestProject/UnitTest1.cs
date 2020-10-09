@@ -220,7 +220,9 @@ namespace UnitTestProject
         public void Matrix4SetRotateX()
         {
             Matrix4 m4a = new Matrix4();
+            
             m4a.SetRotateX(4.5f);
+            
 
             Assert.IsTrue(compare(m4a,
                 new Matrix4(1, 0, 0, 0, 0, -0.210796f, -0.97753f, 0, 0, 0.97753f, -0.210796f, 0, 0, 0, 0, 1)));
