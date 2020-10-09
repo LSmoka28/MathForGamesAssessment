@@ -9,9 +9,9 @@ namespace MathClasses
     public class Colour
     {
         public UInt32 colour;
-
-        
-        
+        public static byte red = 255;
+        public static byte green = 128;
+        public static byte blue = 255;
 
         public Colour()
         {
@@ -25,11 +25,14 @@ namespace MathClasses
 
         public byte GetRed()
         {
-            colour = colour & 0x00ffffff;
-            byte red = 255;
-            UInt32 rValue = (UInt32)red << 24;
+            return (byte)((colour & 0xff000000) >> 24);
+            //UInt32 value = colour & 0xff000000;
 
-            colour |= rValue;
+            //colour = colour & 0x00ffffff;
+            //byte red = 255;
+            //UInt32 rValue = (UInt32)red << 24;
+
+            //colour |= rValue;
         }
 
         public void SetRed(byte red)
@@ -40,7 +43,7 @@ namespace MathClasses
         
         public byte GetGreen()
         {
-
+            return (byte)((colour & 0xff000000) >> 24);
         }
 
         public void SetGreen(byte green)
@@ -50,7 +53,7 @@ namespace MathClasses
 
         public byte GetBlue()
         {
-
+            return (byte)((colour & 0xff000000) >> 24);
         }
 
         public void SetBlue(byte blue)
@@ -60,7 +63,7 @@ namespace MathClasses
 
         public byte GetAlpha()
         {
-
+            return (byte)((colour & 0xff000000) >> 24);
         }
 
         public void SetAlpha(byte alpha)
