@@ -21,7 +21,39 @@ namespace MathClasses
 
         public Matrix3(float mVal1, float mVal2, float mVal3, float mVal4, float mVal5, float mVal6, float mVal7, float mVal8, float mVal9)
         {
-            
+            this.m1 = mVal1;
+            this.m2 = mVal2;
+            this.m3 = mVal3;
+            this.m4 = mVal4;
+            this.m5 = mVal5;
+            this.m6 = mVal6;
+            this.m7 = mVal7;
+            this.m8 = mVal8;
+            this.m9 = mVal9;
+        }
+        public void Set(float mVal1, float mVal2, float mVal3, float mVal4, float mVal5, float mVal6, float mVal7, float mVal8, float mVal9)
+        {
+            this.m1 = mVal1;
+            this.m2 = mVal2;
+            this.m3 = mVal3;
+            this.m4 = mVal4;
+            this.m5 = mVal5;
+            this.m6 = mVal6;
+            this.m7 = mVal7;
+            this.m8 = mVal8;
+            this.m9 = mVal9;
+        }
+        public void Set(Matrix3 other)
+        {
+            this.m1 = other.m1;
+            this.m2 = other.m2;
+            this.m3 = other.m3;
+            this.m4 = other.m4;
+            this.m5 = other.m5;
+            this.m6 = other.m6;
+            this.m7 = other.m7;
+            this.m8 = other.m8;
+            this.m9 = other.m9;
         }
 
         public Matrix3 GetTransposed()
@@ -29,15 +61,7 @@ namespace MathClasses
             return new Matrix3(m1, m4, m7, m2, m5, m8, m3, m6, m9);
         }
 
-        public Matrix3 Set(Matrix3 m)
-        {
-            return new Matrix3(m1,m2,m3,m4,m5,m6,m7,m8,m9);
-        }
-        public Matrix3 Set(float mVal1, float mVal2, float mVal3, float mVal4, float mVal5, float mVal6, float mVal7, float mVal8, float mVal9)
-        {
-            return new Matrix3(mVal1, mVal2, mVal3, mVal4, mVal5, mVal6, mVal7, mVal8, mVal9);
-        }
-
+        
         public void Scale(float x, float y, float z)
         {
             Matrix3 m = new Matrix3();
@@ -72,21 +96,51 @@ namespace MathClasses
             0, (float)Math.Cos(radians), (float)Math.Sin(radians),
             0, (float)-Math.Sin(radians), (float)Math.Cos(radians));
         }
-        public void RotateX(double radians)
+        public void RotateX(double xRadians)
         {
-            Matrix3 m = new Matrix3();
-            m.SetRotateX(radians);
-            Set(this * m);
+            Matrix3 rot = new Matrix3();
+            rot.SetRotateX(xRadians);
+            Set(this * rot);
         }
 
         public void SetRotateY(double radians)
         {
-
+            Set((float)Math.Cos(radians), 0, (float)-Math.Sin(radians),
+            0, 1, 0,
+            (float)Math.Sin(radians), 0, (float)Math.Cos(radians));
         }
 
+        public void RotateY(double yRadians)
+        {
+            Matrix3 rot = new Matrix3();
+            rot.SetRotateY(yRadians);
+            Set(this * rot);
+        }
         public void SetRotateZ(double radians)
         {
+            Set((float)Math.Cos(radians), 0, (float)Math.Sin(radians),
+            (float)-Math.Sin(radians), (float)Math.Cos(radians), 0,
+            0, 0, 1);
+        }
+        
+        public void RotateZ(double zRadians)
+        {
+            Matrix3 rot = new Matrix3();
+            rot.SetRotateZ(zRadians);
+            Set(this * rot);
+        }
 
+        public void SetEuler(float pitch, float yaw, float roll)
+        {
+            Matrix3 x = new Matrix3();
+            Matrix3 y = new Matrix3();
+            Matrix3 z = new Matrix3();
+            x.SetRotateX(pitch);
+            y.SetRotateY(yaw);
+            z.SetRotateZ(roll);
+
+            // rotate in a certain order
+            Set(z * y * x);
         }
 
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)

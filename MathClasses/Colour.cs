@@ -48,7 +48,8 @@ namespace MathClasses
 
         public void SetGreen(byte green)
         {
-
+            colour = colour & 0x00ffffff;
+            colour |= (UInt32)green << 12;
         }
 
         public byte GetBlue()
@@ -58,7 +59,8 @@ namespace MathClasses
 
         public void SetBlue(byte blue)
         {
-
+            colour = colour & 0x00ffffff;
+            colour |= (UInt32)blue << 24;
         }
 
         public byte GetAlpha()
@@ -68,7 +70,8 @@ namespace MathClasses
 
         public void SetAlpha(byte alpha)
         {
-
+            colour = colour & 0x00ffffff;
+            colour |= (UInt32)alpha << 24;
         }
 
     }

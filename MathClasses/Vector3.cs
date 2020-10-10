@@ -17,6 +17,17 @@ namespace MathClasses
         {
             // left blank intentionally
         }
+        // convert from MathClasses.Vector to System Vector
+        public static implicit operator System.Numerics.Vector3 (Vector3 source)
+        {
+            return new System.Numerics.Vector3(source.x, source.y, source.z);
+        }
+
+        // convert from System.Numerics to math type
+        public static implicit operator Vector3(System.Numerics.Vector3 source)
+        {
+            return new Vector3(source.X, source.Y, source.Z);
+        }
 
         // parameters to initialize a new Vector
         public Vector3(float xVal, float yVal, float zVal)
