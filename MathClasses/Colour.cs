@@ -9,18 +9,22 @@ namespace MathClasses
     public class Colour
     {
         public UInt32 colour;
-        public static byte red = 255;
-        public static byte green = 128;
-        public static byte blue = 255;
+        public static byte red;
+        public static byte green;
+        public static byte blue;
+        public static byte alpha;
 
         public Colour()
         {
             
         }
 
-        public Colour(byte red, byte green, byte blue, byte alpha)
+        public Colour(byte redV, byte greenV, byte blueV, byte alphaV)
         {
-
+            red = redV;
+            green = greenV;
+            blue = blueV;
+            alpha = alphaV;
         }
 
         public byte GetRed()
