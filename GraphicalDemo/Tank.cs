@@ -80,7 +80,7 @@ namespace GraphicalDemo
         }
 
         // update tank/turrent movement
-        public virtual void OnUpdate(float deltaTime)
+        public override void OnUpdate(float deltaTime)
         {
             if (IsKeyDown(KeyboardKey.KEY_A))
             {

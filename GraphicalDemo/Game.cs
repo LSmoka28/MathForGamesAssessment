@@ -90,7 +90,7 @@ namespace GraphicalDemo
         }
 
         // draws current framerate
-        public void Draw()
+        public void Draw(Tank player)
         {
             BeginDrawing();
 
