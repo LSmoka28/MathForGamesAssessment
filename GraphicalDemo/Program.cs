@@ -52,12 +52,12 @@ namespace Examples
 
             Timer timer = new Timer();
             Game game = new Game();
-            Tank player = new Tank();
+            Tank player = new Tank(tankFileName, turretFileName);
 
 
             //--------------------------------------------------------------------------------------
 
-            player.Setup(tankFileName, turretFileName);
+            
             
 
             // Main game loop
@@ -68,17 +68,19 @@ namespace Examples
 
                 //----------------------------------------------------------------------------------
                 // TODO: Update your variables here
-                //game.Update();
+                
                 timer.Update();
                 
                 player.OnUpdate(deltaTime);
-                
+
 
                 //----------------------------------------------------------------------------------
-
+                DrawText("Time Since Start: " + GetTime().ToString("0.0"), 25, 25, 20, RED);
+                DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.0000"), 25, 50, 20, RED);
                 // Draw
                 //----------------------------------------------------------------------------------
-                game.Draw(player);
+                //game.Draw(player);
+                player.OnDraw();
                 //----------------------------------------------------------------------------------
             }
 

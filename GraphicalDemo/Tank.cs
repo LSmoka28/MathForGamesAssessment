@@ -112,6 +112,18 @@ namespace GraphicalDemo
             tankObject.Update(deltaTime);
         }
 
+        public override void OnDraw()
+        {
+            BeginDrawing();
+
+            ClearBackground(Color.WHITE);
+            //DrawText(fps.ToString(), 10, 10, 12, Color.RED);
+
+            tankObject.Draw();
+
+            EndDrawing();
+        }
+
         private SpriteObject m_turret;
 
     }

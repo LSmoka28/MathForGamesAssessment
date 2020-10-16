@@ -22,8 +22,10 @@ namespace GraphicalDemo
         Stopwatch stopwatch = new Stopwatch();
 
         Tank player = new Tank();
+        Timer timer2 = new Timer();
 
-        private long currentTime = 0;
+
+        private double currentTime = 0;
         private long lastTime = 0;
         private float timer = 0;
         private int fps = 1;
@@ -73,9 +75,10 @@ namespace GraphicalDemo
         // update for getting current framerate
         public void Update()
         {
-                      
-            currentTime = stopwatch.ElapsedMilliseconds;
-            deltaTime = (currentTime - lastTime) / 1000.0f;
+            deltaTime = timer2.DeltaTime;
+
+            currentTime = GetTime();
+            //deltaTime = (currentTime - lastTime) / 1000.0f;
 
             timer += deltaTime;
             if(timer >= 1)
@@ -90,14 +93,14 @@ namespace GraphicalDemo
         }
 
         // draws current framerate
-        public void Draw(Tank player)
+        public void Draw()
         {
             BeginDrawing();
 
             ClearBackground(Color.WHITE);
             DrawText(fps.ToString(), 10, 10, 12, Color.RED);
 
-            player.Draw();
+            tankObject.Draw();
 
             EndDrawing();
         }
