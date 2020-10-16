@@ -14,7 +14,7 @@ namespace MathClasses
         // set scale as 1 refernce
         public readonly static Matrix4 identity = new Matrix4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
-
+        // set Matrix4 values and show desired column layout
         public Matrix4()
         {
             m1 = 1; m5 = 0; m9 = 0; m13 = 0;
@@ -188,7 +188,22 @@ namespace MathClasses
             Set(z * y * x);
         }
 
-        
+        // set translation 
+        public void SetTranslation(float x, float y, float z)
+        {
+            m13 = x;
+            m14 = y;
+            m15 = z;
+            m16 = 1;
+        }
+
+        public void Translate(float x, float y, float z)
+        {
+            // apply vector offset
+            m13 += x;
+            m14 += y;
+            m15 += z;
+        }
 
         // Matrix4 multiplication op, column major
         public static Matrix4 operator *(Matrix4 lhs, Matrix4 rhs)

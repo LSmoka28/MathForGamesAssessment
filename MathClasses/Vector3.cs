@@ -86,13 +86,14 @@ namespace MathClasses
             this.z /= m;
         }
 
+
         public Vector3 GetNormalised()
         {
             return this / Magnitude();
         }
 
 
-        // method to get dot prodcut of two Vector3
+        // method to get dot prodcut of  Vector3
         public float Dot(Vector3 rhs)
         {
             return x * rhs.x + y * rhs.y + z * rhs.z;

@@ -10,6 +10,7 @@ namespace MathClasses
     {
         public float m1, m2, m3, m4, m5, m6, m7, m8, m9;
 
+        // set Matrix3 values and show desired column layout
         public Matrix3()
         {
             m1 = 1; m4 = 0; m7 = 0;
@@ -159,6 +160,25 @@ namespace MathClasses
             // rotate in a certain order
             Set(z * y * x);
         }
+
+        // set translation 
+        public void SetTranslation(float x, float y)
+        {
+            m7 = x;
+            m8 = y;            
+            m9 = 1;
+        }
+
+        public void Translate(float x, float y)
+        {
+            // apply vector offset
+            m7 += x;
+            m8 += y;            
+        }
+
+
+
+
 
         //Matrix3 multiplication operator for two matrices
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)

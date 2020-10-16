@@ -87,6 +87,7 @@ namespace MathClasses
                                (lhs.m3 * rhs.x) + (lhs.m7 * rhs.y) + (lhs.m11 * rhs.z) + (lhs.m15 * rhs.w),
                                (lhs.m4 * rhs.x) + (lhs.m8 * rhs.y) + (lhs.m12 * rhs.z) + (lhs.m16 * rhs.w));
         }
+
         // method for getting mag of vector4
         public float Magnitude()
         {
@@ -107,7 +108,7 @@ namespace MathClasses
             return this / Magnitude();
         }
 
-
+        // returns Dot product of a vector
         public float Dot(Vector4 rhs)
         {
             return x * rhs.x + y * rhs.y + z * rhs.z + w * rhs.w;

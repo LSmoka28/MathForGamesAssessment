@@ -26,11 +26,13 @@ using static Raylib_cs.Raylib;  // core methods (InitWindow, BeginDrawing())
 using static Raylib_cs.Color;   // color (RAYWHITE, MAROON, etc.)
 using MathClasses; // my mathematics types
 using Raylib_cs;
+using GraphicalDemo;
 
 namespace Examples
 {
     public class core_basic_window
     {
+
         public static int Main()
         {
             // Initialization
@@ -38,36 +40,51 @@ namespace Examples
             const int screenWidth = 800;
             const int screenHeight = 450;
 
-            InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+          
+            
 
+            string tankFileName = @"C:\Users\larry\OneDrive\Desktop\MathForGames\MathAssessment\topdowntanks\PNG\Tanks\tankBlue_outline.png";
+            string turretFileName = @"C:\Users\larry\OneDrive\Desktop\MathForGames\MathAssessment\topdowntanks\PNG\Tanks\barrelBlue.png";
+            
             SetTargetFPS(60);
+            InitWindow(screenWidth, screenHeight, "Tanks for Everything!");
+
+
+            Timer timer = new Timer();
+            Game game = new Game();
+            Tank player = new Tank();
+
+
             //--------------------------------------------------------------------------------------
 
-            Vector3 myVec = ColorToHSV(BLUE);
-            Color rayColor = ColorFromHSV(myVec);
+            player.Setup(tankFileName, turretFileName);
+            
 
             // Main game loop
             while (!WindowShouldClose())    // Detect window close button or ESC key
             {
                 // Update
+                float deltaTime = timer.DeltaTime;
+
                 //----------------------------------------------------------------------------------
                 // TODO: Update your variables here
+                //game.Update();
+                timer.Update();
+                
+                player.OnUpdate(deltaTime);
+                
+
                 //----------------------------------------------------------------------------------
 
                 // Draw
                 //----------------------------------------------------------------------------------
-                BeginDrawing();
-
-                ClearBackground(RAYWHITE);
-
-                DrawText("Congrats! You created your first window!", 190, 200, 20, rayColor);
-
-                EndDrawing();
+                game.Draw();
                 //----------------------------------------------------------------------------------
             }
 
             // De-Initialization
             //--------------------------------------------------------------------------------------
+            game.Shutdown();
             CloseWindow();        // Close window and OpenGL context
             //--------------------------------------------------------------------------------------
 
