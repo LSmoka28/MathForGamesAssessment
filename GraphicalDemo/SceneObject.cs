@@ -175,7 +175,7 @@ namespace GraphicalDemo
             UpdateTransform();
         }
 
-        public void Sale(float width, float height)
+        public void Scale(float width, float height)
         {
             localTransform.Scale(width, height, 1);
             UpdateTransform();

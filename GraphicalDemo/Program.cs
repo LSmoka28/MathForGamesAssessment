@@ -33,18 +33,21 @@ namespace Examples
     public class core_basic_window
     {
 
+        public const int screenWidth = 800;
+        public const int screenHeight = 450;
+        public static float speedX = 50;
+        public static float direction = 1;
+
         public static int Main()
         {
             // Initialization
             //--------------------------------------------------------------------------------------
-            const int screenWidth = 800;
-            const int screenHeight = 450;
+            //const int screenWidth = 800;
+            //const int screenHeight = 450;
 
-          
-            
-
-            string tankFileName = @"C:\Users\larry\OneDrive\Desktop\MathForGames\MathAssessment\topdowntanks\PNG\Tanks\tankBlue_outline.png";
-            string turretFileName = @"C:\Users\larry\OneDrive\Desktop\MathForGames\MathAssessment\topdowntanks\PNG\Tanks\barrelBlue.png";
+            string tankFileName = @"ref\tankBlue_outline.png";
+            string turretFileName = @"ref\barrelBlue.png";
+            string bulletFile = @"ref\bulletRedSilver.png";
             
             SetTargetFPS(60);
             InitWindow(screenWidth, screenHeight, "Tanks for Everything!");
@@ -52,14 +55,17 @@ namespace Examples
 
             Timer timer = new Timer();
             Game game = new Game();
-            Tank player = new Tank(tankFileName, turretFileName);
+            Tank player = new Tank();
+            
+            Vector3 velocity = new Vector3(speedX, direction, 1);
 
 
             //--------------------------------------------------------------------------------------
 
-            
-            
 
+            
+            player.Setup(tankFileName, turretFileName);
+            player.LoadAmmo(bulletFile);
             // Main game loop
             while (!WindowShouldClose())    // Detect window close button or ESC key
             {
@@ -68,19 +74,28 @@ namespace Examples
 
                 //----------------------------------------------------------------------------------
                 // TODO: Update your variables here
-                
+
                 timer.Update();
-                
                 player.OnUpdate(deltaTime);
 
+                
+
+
+
 
                 //----------------------------------------------------------------------------------
-                DrawText("Time Since Start: " + GetTime().ToString("0.0"), 25, 25, 20, RED);
-                DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.0000"), 25, 50, 20, RED);
                 // Draw
                 //----------------------------------------------------------------------------------
-                //game.Draw(player);
+
+
+
+
                 player.OnDraw();
+
+
+
+                DrawText("Time Since Start: " + GetTime().ToString("0.0"), 25, 25, 20, RED);
+                DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.0000"), 25, 50, 20, RED);
                 //----------------------------------------------------------------------------------
             }
 

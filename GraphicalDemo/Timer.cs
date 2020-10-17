@@ -9,8 +9,9 @@ namespace GraphicalDemo
 {
     class Timer
     {
+
         private double prevTimeSinceStart = 0.0f;
-        public double currentTime = 0.0f;
+        private double currentTime = 0.0f;
 
         private float _deltaTime;
         public float DeltaTime
