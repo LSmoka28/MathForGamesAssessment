@@ -45,6 +45,10 @@ namespace Examples
             //const int screenWidth = 800;
             //const int screenHeight = 450;
 
+
+            // TODO: Add bullet array and fix loading of bullet
+
+
             string tankFileName = @"ref\tankBlue_outline.png";
             string turretFileName = @"ref\barrelBlue.png";
             string bulletFile = @"ref\bulletRedSilver.png";
