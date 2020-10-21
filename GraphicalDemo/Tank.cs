@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using Examples;
 using MathClasses;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
@@ -97,82 +98,55 @@ namespace GraphicalDemo
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
         }
 
-        public void LoadAmmo(string bulletImageFilePath)
-        {
-            bulletSprite.Load(bulletImageFilePath);
-
-            bulletSprite.SetRotate(90 * (float)(Math.PI / 180.0f));
-
-            bulletSprite.SetPosition(0,     bulletSprite.Width / 2.0f );
-
-            bulletObject.AddChild(bulletSprite);
-
-            //turretObject.AddChild(bulletObject);
-
-
-            bulletObject.SetPosition((GetScreenWidth() / 2.0f), (GetScreenHeight() / 2.0f));
-
-        }
 
         // update tank/turrent movement
         public override void OnUpdate(float deltaTime)
         {
+
+            // rotate player counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_A))
             {
                 tankObject.Rotate(-deltaTime);
-                bulletObject.Rotate(-deltaTime);
+                
 
 
             }
+            // rotates player clockwise
             if (IsKeyDown(KeyboardKey.KEY_D))
             {
                 tankObject.Rotate(deltaTime);
-                bulletObject.Rotate(deltaTime);
+                
 
             }
+            // moves player forward
             if (IsKeyDown(KeyboardKey.KEY_W))
             {                
                 Vector3 pos = new Vector3(tankObject.LocalTransfrom.m1 * (velocity.x* velocity.y), tankObject.LocalTransfrom.m2 * (velocity.x * velocity.y), 1) * deltaTime;
                 tankObject.Translate(pos.x, pos.y);
-                bulletObject.Translate(pos.x, pos.y);
+                
             }
+            // moves player backwards
             if (IsKeyDown(KeyboardKey.KEY_S))
             {
                 Vector3 pos = new Vector3(tankObject.LocalTransfrom.m1 * (velocity.x * velocity.y), tankObject.LocalTransfrom.m2 * (velocity.x * velocity.y), 1) * -deltaTime;
                 tankObject.Translate(pos.x, pos.y);
-                bulletObject.Translate(pos.x, pos.y);
+                
             }
+            // rotates turret counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_Q))
             {
                 turretObject.Rotate(-deltaTime);
-                bulletObject.Rotate(-deltaTime);
+                
             }
+            // rotates turret clockwise
             if (IsKeyDown(KeyboardKey.KEY_E))
             {
                 turretObject.Rotate(deltaTime);
-                bulletObject.Rotate(deltaTime);
-            }
-
-
-            if (IsKeyPressed(KeyboardKey.KEY_SPACE))
-            {
-
-                Vector3 pos = new Vector3(bulletObject.LocalTransfrom.m1 * 500 , bulletObject.LocalTransfrom.m2 * 500, 1) * deltaTime;
                 
-                
-                
-                bulletObject.Rotate(0);
-                bulletObject.Translate(pos.x, pos.y);
-
-            }
-
-            if (tankObject.LocalTransfrom.m1 > GetScreenWidth())
-            {
-                tankObject.LocalTransfrom.m1 = 0;
             }
 
             tankObject.Update(deltaTime);
-            bulletObject.Update(deltaTime);
+            
 
         }
 
@@ -183,8 +157,7 @@ namespace GraphicalDemo
             ClearBackground(Color.WHITE);
             
             tankObject.Draw();
-            bulletObject.Draw();
-
+            
             EndDrawing();
         }
 

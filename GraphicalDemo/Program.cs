@@ -38,21 +38,29 @@ namespace Examples
         public static float speedX = 50;
         public static float direction = 1;
 
+
+        // bool of active bullets - no more than 5 on the screen at a time
+        public static bool[] bulletActive = { false, false, false, false, false };
+
+
+        // attempt to create array of bullets
+        public static SceneObject[] bulletObjects = new SceneObject[5];
+        public static SpriteObject[] bulletSprites = new SpriteObject[5];
+
+
         public static int Main()
         {
             // Initialization
             //--------------------------------------------------------------------------------------
-            //const int screenWidth = 800;
-            //const int screenHeight = 450;
-
 
             // TODO: Add bullet array and fix loading of bullet
 
-
+            // file name variables
             string tankFileName = @"ref\tankBlue_outline.png";
             string turretFileName = @"ref\barrelBlue.png";
             string bulletFile = @"ref\bulletRedSilver.png";
             
+            // set Frames-Per-Seconda and window size
             SetTargetFPS(60);
             InitWindow(screenWidth, screenHeight, "Tanks for Everything!");
 
@@ -60,16 +68,22 @@ namespace Examples
             Timer timer = new Timer();
             Game game = new Game();
             Tank player = new Tank();
-            
-            Vector3 velocity = new Vector3(speedX, direction, 1);
-
-
+            Bullet bullet = new Bullet();
+                       
             //--------------------------------------------------------------------------------------
-
-
             
+            // load player tank image
             player.Setup(tankFileName, turretFileName);
-            player.LoadAmmo(bulletFile);
+
+            // load bullet image
+            bullet.LoadAmmo(bulletFile);
+
+
+
+            SceneObject bulletObject = new SceneObject();
+            SpriteObject bulletSprite = new SpriteObject();
+
+
             // Main game loop
             while (!WindowShouldClose())    // Detect window close button or ESC key
             {
@@ -82,20 +96,43 @@ namespace Examples
                 timer.Update();
                 player.OnUpdate(deltaTime);
 
-                
-
-
-
-
                 //----------------------------------------------------------------------------------
                 // Draw
                 //----------------------------------------------------------------------------------
 
 
+                // press "SPACEBAR" to shoot bullets out of tank barrel - program class or bullet class?
+                if (IsKeyPressed(KeyboardKey.KEY_SPACE))
+                {
+                    //// try to shoot bullet, no array
+                    //Vector3 posi = new Vector3(bulletObject.LocalTransfrom.m1 * 500, bulletObject.LocalTransfrom.m2 * 500, 1) * deltaTime;
+                    //bulletObject.Translate(posi.x, posi.y);
 
 
+
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (!core_basic_window.bulletActive[i])
+                        {
+
+                            int shootingBullet = i;
+
+                            Vector3 pos = new Vector3(bulletObjects[shootingBullet].LocalTransfrom.m1 * 500, bulletObjects[shootingBullet].LocalTransfrom.m2 * 500, 1) * deltaTime;
+
+                            core_basic_window.bulletObjects[shootingBullet].Rotate(0);
+                            core_basic_window.bulletObjects[shootingBullet].Translate(pos.x, pos.y);
+                        }
+
+                    }
+
+
+                }
+
+                // draws images to screen - loading both result in weird deltaTime issue
+
+                //bullet.OnDraw();
                 player.OnDraw();
-
 
 
                 DrawText("Time Since Start: " + GetTime().ToString("0.0"), 25, 25, 20, RED);
@@ -111,5 +148,7 @@ namespace Examples
 
             return 0;
         }
+
+        
     }
 }

@@ -12,12 +12,7 @@ namespace GraphicalDemo
 {
     class Game
     {
-        SceneObject tankObject = new SceneObject();
-        SceneObject turretObject = new SceneObject();
-
-        SpriteObject tankSprite = new SpriteObject();
-        SpriteObject turretSprite = new SpriteObject();
-
+        
         // stop update/ stopwatch
         public void Shutdown()
         {
@@ -36,8 +31,7 @@ namespace GraphicalDemo
             BeginDrawing();
 
             ClearBackground(Color.WHITE);
-            
-            tankObject.Draw();
+                        
 
             EndDrawing();
         }
