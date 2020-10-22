@@ -109,10 +109,31 @@ namespace Examples
 
                 // draws images to screen 
                 player.OnDraw();
-                
+
+                //// press "SPACEBAR" to shoot bullets out of tank barrel - program class or bullet class?
+                //if (IsKeyPressed(KeyboardKey.KEY_SPACE))
+                //{
+                //    // try to shoot bullet, no array
+                //    if (!core_basic_window.bulletInChamber)
+                //    {
+
+                //        Vector3 posi = new Vector3(bullet.LocalTransfrom.m1 * 100, bullet.LocalTransfrom.m2 * 100, 1) * deltaTime;
+                //        bullet.Translate(posi.x, posi.y);
+
+
+                //        core_basic_window.bulletInChamber = true;
+                //    }
+
+                //}
+                //if (core_basic_window.bulletInChamber)
+                //{
+
+                //    bullet.Draw();
+
+                //}
 
                 DrawText("Time Since Start: " + GetTime().ToString("0.0"), 25, 25, 20, RED);
-                DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.0000"), 25, 50, 20, RED);
+                DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.000000"), 25, 50, 20, RED);
 
 
                 EndDrawing();

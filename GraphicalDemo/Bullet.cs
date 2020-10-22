@@ -18,7 +18,7 @@ namespace GraphicalDemo
         public static SceneObject[] bulletObjects = new SceneObject[5];
         public static SpriteObject[] bulletSprites = new SpriteObject[5];
 
-
+        public static Timer timer = new Timer();
 
         
         public Bullet()
@@ -61,15 +61,14 @@ namespace GraphicalDemo
                 // try to shoot bullet, no array
                 if (!core_basic_window.bulletInChamber)
                 {
-                    Vector3 posi = new Vector3(bulletObj.LocalTransfrom.m1 * 100, bulletObj.LocalTransfrom.m2 * 100, 1) * deltaTime;
-                    bulletObj.Translate(posi.x, posi.y);
+
+                    Vector3 posi = new Vector3(bulletObj.LocalTransfrom.m1 * 100, bulletObj.LocalTransfrom.m2 * 100, 1) * (deltaTime);
                     
-                    bulletObj.Draw();
-                    
+                    bulletObj.Translate(++posi.x, ++posi.y);
+
+
                     core_basic_window.bulletInChamber = true;
                 }
-
-                
 
                 //// shooting with an array - work in progress 
                 //for (int i = 0; i < 5; i++)
@@ -89,14 +88,21 @@ namespace GraphicalDemo
 
                 //}
 
+            }
+            if (core_basic_window.bulletInChamber)
+            {
+
+                bulletObj.Draw();
 
             }
+
         }
 
 
         // draws object loaded
         public override void OnDraw()
-        {          
+        {
+            
             bulletObj.Draw();
         }
 
