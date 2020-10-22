@@ -42,6 +42,8 @@ namespace Examples
         // bool of active bullets - no more than 5 on the screen at a time
         public static bool[] bulletActive = { false, false, false, false, false };
 
+        public static bool bulletInChamber = false;
+
 
         // attempt to create array of bullets
         public static SceneObject[] bulletObjects = new SceneObject[5];
@@ -103,10 +105,11 @@ namespace Examples
 
                 ClearBackground(Color.WHITE);
 
-                // draws images to screen - loading both result in weird deltaTime issue
-                bullet.OnDraw();
-                player.OnDraw();
+               
 
+                // draws images to screen 
+                player.OnDraw();
+                
 
                 DrawText("Time Since Start: " + GetTime().ToString("0.0"), 25, 25, 20, RED);
                 DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.0000"), 25, 50, 20, RED);

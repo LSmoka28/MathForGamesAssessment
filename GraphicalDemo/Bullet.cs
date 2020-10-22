@@ -52,14 +52,22 @@ namespace GraphicalDemo
         }
 
 
+
         public override void OnUpdate(float deltaTime)
         {
             // press "SPACEBAR" to shoot bullets out of tank barrel - program class or bullet class?
             if (IsKeyPressed(KeyboardKey.KEY_SPACE))
             {
                 // try to shoot bullet, no array
-                Vector3 posi = new Vector3(bulletObj.LocalTransfrom.m1 * 5000, bulletObj.LocalTransfrom.m2 * 5000, 1) * deltaTime;
-                bulletObj.Translate(posi.x, posi.y);
+                if (!core_basic_window.bulletInChamber)
+                {
+                    Vector3 posi = new Vector3(bulletObj.LocalTransfrom.m1 * 100, bulletObj.LocalTransfrom.m2 * 100, 1) * deltaTime;
+                    bulletObj.Translate(posi.x, posi.y);
+                    
+                    bulletObj.Draw();
+                    
+                    core_basic_window.bulletInChamber = true;
+                }
 
                 
 
