@@ -69,6 +69,9 @@ namespace Examples
             Game game = new Game();
             Tank player = new Tank();
             Bullet bullet = new Bullet();
+
+            SceneObject bulletObject = new SceneObject();
+            SpriteObject bulletSprite = new SpriteObject();
                        
             //--------------------------------------------------------------------------------------
             
@@ -77,11 +80,6 @@ namespace Examples
 
             // load bullet image
             bullet.LoadAmmo(bulletFile);
-
-
-
-            SceneObject bulletObject = new SceneObject();
-            SpriteObject bulletSprite = new SpriteObject();
 
 
             // Main game loop
@@ -95,48 +93,26 @@ namespace Examples
 
                 timer.Update();
                 player.OnUpdate(deltaTime);
+                bullet.OnUpdate(deltaTime);
 
                 //----------------------------------------------------------------------------------
                 // Draw
                 //----------------------------------------------------------------------------------
 
+                BeginDrawing();
 
-                // press "SPACEBAR" to shoot bullets out of tank barrel - program class or bullet class?
-                if (IsKeyPressed(KeyboardKey.KEY_SPACE))
-                {
-                    //// try to shoot bullet, no array
-                    //Vector3 posi = new Vector3(bulletObject.LocalTransfrom.m1 * 500, bulletObject.LocalTransfrom.m2 * 500, 1) * deltaTime;
-                    //bulletObject.Translate(posi.x, posi.y);
-
-
-
-
-                    for (int i = 0; i < 5; i++)
-                    {
-                        if (!core_basic_window.bulletActive[i])
-                        {
-
-                            int shootingBullet = i;
-
-                            Vector3 pos = new Vector3(bulletObjects[shootingBullet].LocalTransfrom.m1 * 500, bulletObjects[shootingBullet].LocalTransfrom.m2 * 500, 1) * deltaTime;
-
-                            core_basic_window.bulletObjects[shootingBullet].Rotate(0);
-                            core_basic_window.bulletObjects[shootingBullet].Translate(pos.x, pos.y);
-                        }
-
-                    }
-
-
-                }
+                ClearBackground(Color.WHITE);
 
                 // draws images to screen - loading both result in weird deltaTime issue
-
-                //bullet.OnDraw();
+                bullet.OnDraw();
                 player.OnDraw();
 
 
                 DrawText("Time Since Start: " + GetTime().ToString("0.0"), 25, 25, 20, RED);
                 DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.0000"), 25, 50, 20, RED);
+
+
+                EndDrawing();
                 //----------------------------------------------------------------------------------
             }
 

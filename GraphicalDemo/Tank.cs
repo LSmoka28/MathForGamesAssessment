@@ -152,13 +152,7 @@ namespace GraphicalDemo
 
         public override void OnDraw()
         {
-            BeginDrawing();
-
-            ClearBackground(Color.WHITE);
-            
             tankObject.Draw();
-            
-            EndDrawing();
         }
 
         private SpriteObject m_turret;
