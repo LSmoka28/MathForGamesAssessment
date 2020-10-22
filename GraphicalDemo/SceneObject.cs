@@ -19,7 +19,7 @@ namespace GraphicalDemo
         
 
         // matrix3 local
-        public Matrix3 LocalTransfrom
+        public Matrix3 LocalTransform
         {
             get { return localTransform; }
         }

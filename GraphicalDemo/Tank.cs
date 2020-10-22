@@ -121,29 +121,18 @@ namespace GraphicalDemo
             // moves player forward
             if (IsKeyDown(KeyboardKey.KEY_W))
             {                
-                Vector3 pos = new Vector3(tankObject.LocalTransfrom.m1 * (velocity.x* velocity.y), tankObject.LocalTransfrom.m2 * (velocity.x * velocity.y), 1) * deltaTime;
+                Vector3 pos = new Vector3(tankObject.LocalTransform.m1 * (velocity.x * velocity.y), tankObject.LocalTransform.m2 * (velocity.x * velocity.y), 1) * deltaTime;
                 tankObject.Translate(pos.x, pos.y);
                 
             }
             // moves player backwards
             if (IsKeyDown(KeyboardKey.KEY_S))
             {
-                Vector3 pos = new Vector3(tankObject.LocalTransfrom.m1 * (velocity.x * velocity.y), tankObject.LocalTransfrom.m2 * (velocity.x * velocity.y), 1) * -deltaTime;
+                Vector3 pos = new Vector3(tankObject.LocalTransform.m1 * (velocity.x * velocity.y), tankObject.LocalTransform.m2 * (velocity.x * velocity.y), 1) * -deltaTime;
                 tankObject.Translate(pos.x, pos.y);
                 
             }
-            // rotates turret counter clockwise
-            if (IsKeyDown(KeyboardKey.KEY_Q))
-            {
-                turretObject.Rotate(-deltaTime);
-                
-            }
-            // rotates turret clockwise
-            if (IsKeyDown(KeyboardKey.KEY_E))
-            {
-                turretObject.Rotate(deltaTime);
-                
-            }
+            
 
             tankObject.Update(deltaTime);
             

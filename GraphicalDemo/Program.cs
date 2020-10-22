@@ -81,7 +81,7 @@ namespace Examples
             player.Setup(tankFileName, turretFileName);
 
             // load bullet image
-            bullet.LoadAmmo(bulletFile);
+            bullet.LoadAmmo(bulletFile, player);
 
 
             // Main game loop
@@ -103,7 +103,7 @@ namespace Examples
 
                 BeginDrawing();
 
-                ClearBackground(Color.WHITE);
+                ClearBackground(Color.LIGHTGRAY);
 
                
 
@@ -134,6 +134,7 @@ namespace Examples
 
                 DrawText("Time Since Start: " + GetTime().ToString("0.0"), 25, 25, 20, RED);
                 DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.000000"), 25, 50, 20, RED);
+                
 
 
                 EndDrawing();
