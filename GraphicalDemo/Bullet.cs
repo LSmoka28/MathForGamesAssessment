@@ -70,9 +70,9 @@ namespace GraphicalDemo
             if (IsKeyPressed(KeyboardKey.KEY_SPACE))
             {
                 // try to shoot bullet, no array
-                if (!core_basic_window.bulletInChamber)
+                if (!core_basic_window.bulletFiring)
                 {                     
-                    core_basic_window.bulletInChamber = true;
+                    core_basic_window.bulletFiring = true;
                 }
 
                 bulletObj.SetPosition(Tank.tankObject.LocalTransform.m7, Tank.tankObject.LocalTransform.m8);
@@ -99,7 +99,7 @@ namespace GraphicalDemo
                 //}
 
             }
-            if (core_basic_window.bulletInChamber)
+            if (core_basic_window.bulletFiring)
             {
 
                 //tank.OnUpdate(timer.DeltaTime);
@@ -112,12 +112,12 @@ namespace GraphicalDemo
 
                 if (bulletObj.LocalTransform.m7 >= GetScreenWidth() || bulletObj.LocalTransform.m8 >= GetScreenHeight())
                 {
-                    core_basic_window.bulletInChamber = false;
+                    core_basic_window.bulletFiring = false;
                     
                 }
                 if(bulletObj.LocalTransform.m7 <= 0 || bulletObj.LocalTransform.m8 <= 0 )
                 {
-                    core_basic_window.bulletInChamber = false;
+                    core_basic_window.bulletFiring = false;
                 }
 
                 bulletObj.Rotate(0);

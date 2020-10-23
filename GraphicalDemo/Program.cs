@@ -28,6 +28,7 @@ using MathClasses; // my mathematics types
 using Raylib_cs;
 using GraphicalDemo;
 using System.Numerics;
+using System;
 
 namespace Examples
 {
@@ -43,7 +44,8 @@ namespace Examples
         // bool of active bullets - no more than 5 on the screen at a time
         public static bool[] bulletActive = { false, false, false, false, false };
 
-        public static bool bulletInChamber = false;
+        public static bool bulletFiring = false;
+        public static bool collidedWith = false;
 
 
         // attempt to create array of bullets
@@ -72,6 +74,7 @@ namespace Examples
             Game game = new Game();
             Tank player = new Tank();
             Bullet bullet = new Bullet();
+            Random random = new Random();
 
             Bullet.tank = player;
 
@@ -120,27 +123,34 @@ namespace Examples
 
                 DrawText("Time Since Start: " + GetTime().ToString("0.0"), 25, 25, 20, RED);
                 DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.000000"), 25, 50, 20, RED);
+
+
+
+                Rectangle rect = new Rectangle
+                {
+                    x = GetScreenWidth() / 4,
+                    y = GetScreenHeight() / 4,
+                    width = 50,
+                    height = 50
+                };
+
                 
-               
-
-                Rectangle rect = new Rectangle();
-                rect.x = GetScreenWidth() / 4;
-                rect.y = GetScreenHeight() / 4;
-                rect.width = 50;
-                rect.height = 50;
-
                 DrawRectangle((int)rect.x, (int)rect.y, (int)rect.width, (int)rect.height, BLUE);
                 
-                if(bulletInChamber && CheckCollisionPointRec(new MathClasses.Vector2(Bullet.bulletObj.LocalTransform.m7, Bullet.bulletObj.LocalTransform.m8), rect)==true)
+                
+                if(bulletFiring && CheckCollisionPointRec(new MathClasses.Vector2(Bullet.bulletObj.LocalTransform.m7, Bullet.bulletObj.LocalTransform.m8), rect)==true)
                 {
-                    DrawRectangle((int)rect.x, (int)rect.y, (int)rect.width, (int)rect.height, GREEN);
-                    bulletInChamber = false;
-                    //DrawText("Collision worked", 25, 25, 20, RED);
-                    System.Console.WriteLine("Collision Worked");
+                    
+                    rect.x = random.Next(25, GetScreenWidth() - 25);
+                    rect.y = random.Next(25, GetScreenHeight() - 25);
+                    
+                    
+                    bulletFiring = false;
+
+                    Console.WriteLine("Collision Worked");
+
                 }
-
-
-
+                
 
 
                 EndDrawing();

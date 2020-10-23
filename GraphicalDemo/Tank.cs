@@ -146,6 +146,24 @@ namespace GraphicalDemo
 
             }
 
+            // resets tank position to correct opposite side of player exited window
+            if(tankObject.LocalTransform.m7 > GetScreenWidth())
+            {
+                tankObject.SetPosition(0, GetScreenHeight() / 2);
+            }
+            if (tankObject.LocalTransform.m8 > GetScreenHeight())
+            {
+                tankObject.SetPosition(GetScreenWidth() / 2, 0);
+            }
+            if (tankObject.LocalTransform.m7 < 0)
+            {
+                tankObject.SetPosition(GetScreenWidth(), GetScreenHeight() / 2);
+            }
+            if (tankObject.LocalTransform.m8 < 0)
+            {
+                tankObject.SetPosition(GetScreenWidth() / 2, GetScreenHeight());
+            }
+
             tankObject.Update(deltaTime);
             
 
