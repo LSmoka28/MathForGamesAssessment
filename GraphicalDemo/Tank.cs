@@ -12,7 +12,7 @@ namespace GraphicalDemo
     class Tank : SpriteObject
     {
 
-        SceneObject tankObject = new SceneObject();
+        public static SceneObject tankObject = new SceneObject();
         SpriteObject tankSprite = new SpriteObject();
 
         SceneObject turretObject = new SceneObject();
@@ -132,7 +132,19 @@ namespace GraphicalDemo
                 tankObject.Translate(pos.x, pos.y);
                 
             }
-            
+            // rotates turret counter clockwise
+            if (IsKeyDown(KeyboardKey.KEY_Q))
+            {
+                turretObject.Rotate(-deltaTime);
+
+
+            }
+            // rotates turret clockwise
+            if (IsKeyDown(KeyboardKey.KEY_E))
+            {
+                turretObject.Rotate(deltaTime);
+
+            }
 
             tankObject.Update(deltaTime);
             

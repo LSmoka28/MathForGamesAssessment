@@ -27,6 +27,7 @@ using static Raylib_cs.Color;   // color (RAYWHITE, MAROON, etc.)
 using MathClasses; // my mathematics types
 using Raylib_cs;
 using GraphicalDemo;
+using System.Numerics;
 
 namespace Examples
 {
@@ -72,8 +73,13 @@ namespace Examples
             Tank player = new Tank();
             Bullet bullet = new Bullet();
 
+            Bullet.tank = player;
+
+            
+
             SceneObject bulletObject = new SceneObject();
             SpriteObject bulletSprite = new SpriteObject();
+
                        
             //--------------------------------------------------------------------------------------
             
@@ -81,7 +87,7 @@ namespace Examples
             player.Setup(tankFileName, turretFileName);
 
             // load bullet image
-            bullet.LoadAmmo(bulletFile, player);
+            bullet.LoadAmmo(bulletFile);
 
 
             // Main game loop
@@ -110,31 +116,31 @@ namespace Examples
                 // draws images to screen 
                 player.OnDraw();
 
-                //// press "SPACEBAR" to shoot bullets out of tank barrel - program class or bullet class?
-                //if (IsKeyPressed(KeyboardKey.KEY_SPACE))
-                //{
-                //    // try to shoot bullet, no array
-                //    if (!core_basic_window.bulletInChamber)
-                //    {
-
-                //        Vector3 posi = new Vector3(bullet.LocalTransfrom.m1 * 100, bullet.LocalTransfrom.m2 * 100, 1) * deltaTime;
-                //        bullet.Translate(posi.x, posi.y);
-
-
-                //        core_basic_window.bulletInChamber = true;
-                //    }
-
-                //}
-                //if (core_basic_window.bulletInChamber)
-                //{
-
-                //    bullet.Draw();
-
-                //}
+                
 
                 DrawText("Time Since Start: " + GetTime().ToString("0.0"), 25, 25, 20, RED);
                 DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.000000"), 25, 50, 20, RED);
                 
+               
+
+                Rectangle rect = new Rectangle();
+                rect.x = GetScreenWidth() / 4;
+                rect.y = GetScreenHeight() / 4;
+                rect.width = 50;
+                rect.height = 50;
+
+                DrawRectangle((int)rect.x, (int)rect.y, (int)rect.width, (int)rect.height, BLUE);
+                
+                if(bulletInChamber && CheckCollisionPointRec(new MathClasses.Vector2(Bullet.bulletObj.LocalTransform.m7, Bullet.bulletObj.LocalTransform.m8), rect)==true)
+                {
+                    DrawRectangle((int)rect.x, (int)rect.y, (int)rect.width, (int)rect.height, GREEN);
+                    bulletInChamber = false;
+                    //DrawText("Collision worked", 25, 25, 20, RED);
+                    System.Console.WriteLine("Collision Worked");
+                }
+
+
+
 
 
                 EndDrawing();

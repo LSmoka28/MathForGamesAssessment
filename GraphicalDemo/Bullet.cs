@@ -15,8 +15,6 @@ namespace GraphicalDemo
         public static SceneObject bulletObj = new SceneObject();
         public static SpriteObject bulletSpr = new SpriteObject();
 
-        
-
 
         public static SceneObject[] bulletObjects = new SceneObject[5];
         public static SpriteObject[] bulletSprites = new SpriteObject[5];
@@ -29,6 +27,7 @@ namespace GraphicalDemo
         public static float direction = 2;
         Vector3 velocity = new Vector3(speed, direction, 1);
 
+        
 
         public Bullet()
         {
@@ -36,7 +35,7 @@ namespace GraphicalDemo
         }
        
         // load bullet image and assign parent/child relationship
-        public void LoadAmmo(string bulletImageFilePath, Tank player)
+        public void LoadAmmo(string bulletImageFilePath)
         {
             bulletSpr.Load(bulletImageFilePath);
 
@@ -46,19 +45,20 @@ namespace GraphicalDemo
 
             bulletObj.AddChild(bulletSpr);
 
-            //turretObject.AddChild(bulletObject);
-
-            //tank.OnUpdate(timer.DeltaTime);
-            bulletObj.SetPosition(player.LocalTransform.m7, player.LocalTransform.m8);
-            bulletObj.UpdateTransform();
             
+            //// load each sprite into array
+            //foreach (SpriteObject bullet in bulletSprites)
+            //{
 
 
-            // load each sprite into array
-            foreach (SceneObject bullet in bulletObjects)
-            {
+            //    bullet.Load(bulletImageFilePath);
 
-            }
+            //    bullet.SetRotate(90 * (float)(Math.PI / 180.0f));
+
+            //    bullet.SetPosition(0, bulletSpr.Width / 2.0f);
+
+            //    bullet.AddChild(bulletSpr);
+            //}
 
         }
 
@@ -75,20 +75,25 @@ namespace GraphicalDemo
                     core_basic_window.bulletInChamber = true;
                 }
 
+                bulletObj.SetPosition(Tank.tankObject.LocalTransform.m7, Tank.tankObject.LocalTransform.m8);
+                bulletObj.Rotate(0);
+
+
                 //// shooting with an array - work in progress 
                 //for (int i = 0; i < 5; i++)
                 //{
                 //    int shootingBullet = i;
 
-                //    Vector3 pos = new Vector3(bulletObjects[shootingBullet].LocalTransfrom.m1 * 500, bulletObjects[shootingBullet].LocalTransfrom.m2 * 500, 1) * deltaTime;
+                //    Vector3 pos = new Vector3(bulletObjects[shootingBullet].LocalTransform.m1 * 500, bulletObjects[shootingBullet].LocalTransform.m2 * 500, 1) * deltaTime;
 
                 //    if (!core_basic_window.bulletActive[i])
                 //    {
 
 
 
-                //        core_basic_window.bulletObjects[shootingBullet].Rotate(0);
-                //        core_basic_window.bulletObjects[shootingBullet].Translate(pos.x, pos.y);
+                //        core_basic_window.bulletObjects[shootingBullet].SetPosition(Tank.tankObject.LocalTransform.m7, Tank.tankObject.LocalTransform.m8);
+                //        core_basic_window.bulletActive[0] = true;
+
                 //    }
 
                 //}
@@ -105,55 +110,46 @@ namespace GraphicalDemo
 
                 bulletObj.Translate(posi.x, posi.y);
 
-                if (bulletObj.LocalTransform.m7 >= GetScreenWidth() | bulletObj.LocalTransform.m8 >= GetScreenHeight())
+                if (bulletObj.LocalTransform.m7 >= GetScreenWidth() || bulletObj.LocalTransform.m8 >= GetScreenHeight())
                 {
                     core_basic_window.bulletInChamber = false;
                     
                 }
-                
+                if(bulletObj.LocalTransform.m7 <= 0 || bulletObj.LocalTransform.m8 <= 0 )
+                {
+                    core_basic_window.bulletInChamber = false;
+                }
+
+                bulletObj.Rotate(0);
                 bulletObj.Draw();
             }
 
-            //// rotate player counter clockwise
-            //if (IsKeyDown(KeyboardKey.KEY_A))
-            //{
-            //    bulletObj.Rotate(-deltaTime);
-                
+            // rotate player counter clockwise
+            if (IsKeyDown(KeyboardKey.KEY_A))
+            {
+                bulletObj.Rotate(-deltaTime);
 
-            //}
-            //// rotates player clockwise
-            //if (IsKeyDown(KeyboardKey.KEY_D))
-            //{
-            //    bulletObj.Rotate(deltaTime);
 
-            //}
-            //// moves player forward
-            //if (IsKeyDown(KeyboardKey.KEY_W))
-            //{
-            //    Vector3 pos = new Vector3(bulletObj.LocalTransfrom.m1 * (velocity.x * velocity.y), bulletObj.LocalTransfrom.m2 * (velocity.x * velocity.y), 1) * deltaTime;
-            //    bulletObj.Translate(pos.x, pos.y);
+            }
+            // rotates player clockwise
+            if (IsKeyDown(KeyboardKey.KEY_D))
+            {
+                bulletObj.Rotate(deltaTime);
 
-            //}
-            //// moves player backwards
-            //if (IsKeyDown(KeyboardKey.KEY_S))
-            //{
-            //    Vector3 pos = new Vector3(bulletObj.LocalTransfrom.m1 * (velocity.x * velocity.y), bulletObj.LocalTransfrom.m2 * (velocity.x * velocity.y), 1) * -deltaTime;
-            //    bulletObj.Translate(pos.x, pos.y);
+            }
+            // rotates turret counter clockwise
+            if (IsKeyDown(KeyboardKey.KEY_Q))
+            {
+                bulletObj.Rotate(-deltaTime);
 
-            //}
-            //// rotates turret counter clockwise
-            //if (IsKeyDown(KeyboardKey.KEY_Q))
-            //{
-            //    bulletObj.Rotate(-deltaTime);
-                 
 
-            //}
-            //// rotates turret clockwise
-            //if (IsKeyDown(KeyboardKey.KEY_E))
-            //{
-            //    bulletObj.Rotate(deltaTime);
+            }
+            // rotates turret clockwise
+            if (IsKeyDown(KeyboardKey.KEY_E))
+            {
+                bulletObj.Rotate(deltaTime);
 
-            //}
+            }
 
         }
 
