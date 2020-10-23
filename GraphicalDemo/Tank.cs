@@ -11,66 +11,29 @@ namespace GraphicalDemo
 {
     class Tank : SpriteObject
     {
-
+        // new SceneObject for tank parent and a child tank SpriteObject
         public static SceneObject tankObject = new SceneObject();
         SpriteObject tankSprite = new SpriteObject();
 
-        SceneObject turretObject = new SceneObject();
-        SpriteObject turretSprite = new SpriteObject();
+        // new SceneObject to turret parent and a child turret SpriteObject
+        public static SceneObject turretObject = new SceneObject();
+        public static SpriteObject turretSprite = new SpriteObject();
 
-        SceneObject bulletObject = new SceneObject();
-        SpriteObject bulletSprite = new SpriteObject();
-
-        Timer timer = new Timer();
-
-        public static float speedX = 100;
+        // Vector3 of velocity
+        public static float speed = 100;
         public static float direction = 2;
-
-
-        public static string bulletFile = @"ref\bulletRedSilver.png";
-
-        Vector3 velocity = new Vector3(speedX, direction, 1);
-        Vector3 position = new Vector3(GetScreenWidth() / 2, GetScreenHeight() / 2, 1);
-        
-     
+        Vector3 velocity = new Vector3(speed, direction, 1);
 
         // create uninitialized tank
         public Tank()
         {
-
+            // left blank intentionally
         }
-
-        // load sprites and attach turret
-        public Tank(string tankImageFilePath, string turretImageFilePath)
-        {
-            //load tank
-            tankSprite.Load(tankImageFilePath);
-            // flip the tank 90 deg
-            tankSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
-            // set an offset fo that it has a center
-            tankSprite.SetPosition(-tankSprite.Width / 2.0f, tankSprite.Height / 2.0f);
-
-            // load turret
-            turretSprite.Load(turretImageFilePath);
-            // rotate 90 deg
-            turretSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
-            // set offset for center point
-            turretSprite.SetPosition(0, turretSprite.Width / 2.0f);
-                    
-            //set hierarchy                      
-            turretObject.AddChild(turretSprite);
-                       
-            tankObject.AddChild(tankSprite);
-            tankObject.AddChild(turretObject);           
-
-            tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
-
-        }
-
+        
         // unload images
         ~Tank()
         {
-
+            // left blank intentionally
         }
 
         // load sprites and attach turret
@@ -95,6 +58,7 @@ namespace GraphicalDemo
             tankObject.AddChild(tankSprite);
             tankObject.AddChild(turretObject);
 
+            // set position of object to center of window
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
         }
 
@@ -103,47 +67,37 @@ namespace GraphicalDemo
         public override void OnUpdate(float deltaTime)
         {
 
-            // rotate player counter clockwise
+            // rotate object counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_A))
             {
                 tankObject.Rotate(-deltaTime);
-                
-
-
             }
-            // rotates player clockwise
+            // rotates object clockwise
             if (IsKeyDown(KeyboardKey.KEY_D))
             {
-                tankObject.Rotate(deltaTime);
-                
-
+                tankObject.Rotate(deltaTime);               
             }
-            // moves player forward
+            // moves object forward
             if (IsKeyDown(KeyboardKey.KEY_W))
             {                
                 Vector3 pos = new Vector3(tankObject.LocalTransform.m1 * (velocity.x * velocity.y), tankObject.LocalTransform.m2 * (velocity.x * velocity.y), 1) * deltaTime;
-                tankObject.Translate(pos.x, pos.y);
-                
+                tankObject.Translate(pos.x, pos.y);               
             }
-            // moves player backwards
+            // moves object backwards
             if (IsKeyDown(KeyboardKey.KEY_S))
             {
                 Vector3 pos = new Vector3(tankObject.LocalTransform.m1 * (velocity.x * velocity.y), tankObject.LocalTransform.m2 * (velocity.x * velocity.y), 1) * -deltaTime;
-                tankObject.Translate(pos.x, pos.y);
-                
+                tankObject.Translate(pos.x, pos.y);               
             }
             // rotates turret counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_Q))
             {
                 turretObject.Rotate(-deltaTime);
-
-
             }
             // rotates turret clockwise
             if (IsKeyDown(KeyboardKey.KEY_E))
             {
                 turretObject.Rotate(deltaTime);
-
             }
 
             // resets tank position to correct opposite side of player exited window
@@ -164,17 +118,14 @@ namespace GraphicalDemo
                 tankObject.SetPosition(GetScreenWidth() / 2, GetScreenHeight());
             }
 
-            tankObject.Update(deltaTime);
-            
-
+            // update object
+            tankObject.Update(deltaTime);            
         }
 
+        // draw object to screen
         public override void OnDraw()
         {
             tankObject.Draw();
-        }
-
-        private SpriteObject m_turret;
-
+        }        
     }
 }

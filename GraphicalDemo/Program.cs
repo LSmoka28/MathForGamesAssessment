@@ -34,32 +34,24 @@ namespace Examples
 {
     public class core_basic_window
     {
-
         public const int screenWidth = 800;
         public const int screenHeight = 450;
-        public static float speedX = 50;
+        public static float speed = 50;
         public static float direction = 1;
-
 
         // bool of active bullets - no more than 5 on the screen at a time
         public static bool[] bulletActive = { false, false, false, false, false };
 
+        // bool for bullet firing
         public static bool bulletFiring = false;
-        public static bool collidedWith = false;
 
 
-        // attempt to create array of bullets
-        public static SceneObject[] bulletObjects = new SceneObject[5];
-        public static SpriteObject[] bulletSprites = new SpriteObject[5];
-
-
+        // main program method
         public static int Main()
         {
             // Initialization
             //--------------------------------------------------------------------------------------
-
-            // TODO: Add bullet array and fix loading of bullet
-
+            
             // file name variables
             string tankFileName = @"ref\tankBlue_outline.png";
             string turretFileName = @"ref\barrelBlue.png";
@@ -69,21 +61,30 @@ namespace Examples
             SetTargetFPS(60);
             InitWindow(screenWidth, screenHeight, "Tanks for Everything!");
 
-
+            // initialize classes
             Timer timer = new Timer();
             Game game = new Game();
             Tank player = new Tank();
             Bullet bullet = new Bullet();
+
+            // initialize random
             Random random = new Random();
 
+            // assign tank in Bullet class to player tank
             Bullet.tank = player;
 
-            
+            // simple score count
+            int score = 0;
 
-            SceneObject bulletObject = new SceneObject();
-            SpriteObject bulletSprite = new SpriteObject();
+            // color conversion holding box color
+            MathClasses.Vector3 colorVecBox = ColorToHSV(Color.ORANGE);
+            Color boxColor = ColorFromHSV(colorVecBox);
 
-                       
+            MathClasses.Vector3 colorVecBackground = ColorToHSV(LIGHTGRAY);
+            Color backgroundColor = ColorFromHSV(colorVecBackground);
+
+
+
             //--------------------------------------------------------------------------------------
             
             // load player tank image
@@ -91,6 +92,15 @@ namespace Examples
 
             // load bullet image
             bullet.LoadAmmo(bulletFile);
+
+            // create new rectangle and assign proper value
+            Rectangle rect = new Rectangle
+            {
+                x = GetScreenWidth() / 4,
+                y = GetScreenHeight() / 4,
+                width = 60,
+                height = 60
+            };
 
 
             // Main game loop
@@ -100,11 +110,25 @@ namespace Examples
                 float deltaTime = timer.DeltaTime;
 
                 //----------------------------------------------------------------------------------
-                // TODO: Update your variables here
-
+                
                 timer.Update();
                 player.OnUpdate(deltaTime);
                 bullet.OnUpdate(deltaTime);
+
+                // check for collision point inside rectangle
+                if (bulletFiring && CheckCollisionPointRec(new MathClasses.Vector2(Bullet.bulletObj.LocalTransform.m7, Bullet.bulletObj.LocalTransform.m8), rect) == true)
+                {
+
+                    rect.x = random.Next(50, GetScreenWidth() - 50);
+                    rect.y = random.Next(50, GetScreenHeight() - 50);
+                    score += 1;
+
+                    bulletFiring = false;
+
+                    // console log to prove collision
+                    Console.WriteLine("Collision Detected");
+
+                }
 
                 //----------------------------------------------------------------------------------
                 // Draw
@@ -112,55 +136,30 @@ namespace Examples
 
                 BeginDrawing();
 
-                ClearBackground(Color.LIGHTGRAY);
-
+                ClearBackground(backgroundColor);
                
-
                 // draws images to screen 
                 player.OnDraw();
-
                 
-
-                DrawText("Time Since Start: " + GetTime().ToString("0.0"), 25, 25, 20, RED);
-                DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.000000"), 25, 50, 20, RED);
-
-
-
-                Rectangle rect = new Rectangle
-                {
-                    x = GetScreenWidth() / 4,
-                    y = GetScreenHeight() / 4,
-                    width = 50,
-                    height = 50
-                };
-
+                // draw rectangle to screen
+                DrawRectangle((int)rect.x, (int)rect.y, (int)rect.width, (int)rect.height, boxColor);
                 
-                DrawRectangle((int)rect.x, (int)rect.y, (int)rect.width, (int)rect.height, BLUE);
+                // end game controls
+                DrawText("Press 'esc' or 'x' key to quit game and close window", 10, 20, 20, RED);
+
+                // visible text on screen for score, deltaTime, and time since game started
+                DrawText("Time Since Start: " + GetTime().ToString("0.0"), 10, 40, 20, RED);
+                DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.000000"), 10, 60, 20, RED);
+                DrawText("Targets Hit: " + score.ToString("0"), 10, 80, 20, RED);
+             
                 
-                
-                if(bulletFiring && CheckCollisionPointRec(new MathClasses.Vector2(Bullet.bulletObj.LocalTransform.m7, Bullet.bulletObj.LocalTransform.m8), rect)==true)
-                {
-                    
-                    rect.x = random.Next(25, GetScreenWidth() - 25);
-                    rect.y = random.Next(25, GetScreenHeight() - 25);
-                    
-                    
-                    bulletFiring = false;
-
-                    Console.WriteLine("Collision Worked");
-
-                }
-                
-
-
                 EndDrawing();
                 //----------------------------------------------------------------------------------
             }
 
             // De-Initialization
-            //--------------------------------------------------------------------------------------
-            game.Shutdown();
-            CloseWindow();        // Close window and OpenGL context
+            //--------------------------------------------------------------------------------------            
+            game.Shutdown();                    // Close window and OpenGL context
             //--------------------------------------------------------------------------------------
 
             return 0;

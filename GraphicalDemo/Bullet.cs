@@ -12,46 +12,52 @@ namespace GraphicalDemo
 {
     class Bullet : SpriteObject
     {
+        // TODO: Add bullet array and fix loading of bullet
+
+        // new SceneObject for tank parent and a child tank SpriteObject
         public static SceneObject bulletObj = new SceneObject();
-        public static SpriteObject bulletSpr = new SpriteObject();
+        SpriteObject bulletSpr = new SpriteObject();
 
-
+        // attempt to hold array bullets
         public static SceneObject[] bulletObjects = new SceneObject[5];
         public static SpriteObject[] bulletSprites = new SpriteObject[5];
 
+        // timer instance to check deltaTime
         public static Timer timer = new Timer();
 
+        // Tank instacne to assign a bullet to
         public static Tank tank = new Tank();
 
-        public static float speed = 100;
+        // Vector3 of velocity
+        public static float speed = 300;
         public static float direction = 2;
-        Vector3 velocity = new Vector3(speed, direction, 1);
+        Vector3 velocityOfBullet = new Vector3(speed, direction, 1);
 
-        
-
+        // create uninitialized tank
         public Bullet()
         {
-
+            // left blank intentionally
         }
-       
+
         // load bullet image and assign parent/child relationship
         public void LoadAmmo(string bulletImageFilePath)
         {
+            // load file path specified
             bulletSpr.Load(bulletImageFilePath);
-
+            // rotate to match correct facing direction of tank
             bulletSpr.SetRotate(90 * (float)(Math.PI / 180.0f));
+            // set pivot point
+            bulletSpr.SetPosition(bulletSpr.Width /2.0f, 0);
 
-            bulletSpr.SetPosition(0, bulletSpr.Width / 2.0f);
-
+            // set hierarchy
             bulletObj.AddChild(bulletSpr);
 
-            
+
             //// load each sprite into array
-            //foreach (SpriteObject bullet in bulletSprites)
+            //foreach (SpriteObject bullet in bulletObjects)
             //{
 
-
-            //    bullet.Load(bulletImageFilePath);
+            //    bulletSpr.Load(bulletImageFilePath);
 
             //    bullet.SetRotate(90 * (float)(Math.PI / 180.0f));
 
@@ -62,23 +68,21 @@ namespace GraphicalDemo
 
         }
 
-
-
         public override void OnUpdate(float deltaTime)
         {
-            // press "SPACEBAR" to shoot bullets out of tank barrel - program class or bullet class?
+            // press "SPACEBAR" to shoot bullets out of tank barrel
             if (IsKeyPressed(KeyboardKey.KEY_SPACE))
-            {
-                // try to shoot bullet, no array
+            {                
+                // shoot bullet, no array
+                // set bullet firing to true after hitting space if false
                 if (!core_basic_window.bulletFiring)
-                {                     
+                {                    
                     core_basic_window.bulletFiring = true;
                 }
 
-                bulletObj.SetPosition(Tank.tankObject.LocalTransform.m7, Tank.tankObject.LocalTransform.m8);
-                bulletObj.Rotate(0);
-
-
+                // set/start shooting position of bullet at turrets x and y
+                bulletObj.SetPosition(Tank.turretObject.GlobalTransform.m7, Tank.turretObject.GlobalTransform.m8 - 5);
+                
                 //// shooting with an array - work in progress 
                 //for (int i = 0; i < 5; i++)
                 //{
@@ -101,14 +105,9 @@ namespace GraphicalDemo
             }
             if (core_basic_window.bulletFiring)
             {
+                Vector3 pos = new Vector3(bulletObj.LocalTransform.m1 * (velocityOfBullet.x * velocityOfBullet.y), bulletObj.LocalTransform.m2 * (velocityOfBullet.x * velocityOfBullet.y), 1) * (deltaTime);
 
-                //tank.OnUpdate(timer.DeltaTime);
-                //bulletObj.SetPosition(tank.LocalTransfrom.m1, tank.LocalTransfrom.m2);
-                //bulletObj.UpdateTransform();
-
-                Vector3 posi = new Vector3(bulletObj.LocalTransform.m1 * 500, bulletObj.LocalTransform.m2 * 500, 1) * (deltaTime);
-
-                bulletObj.Translate(posi.x, posi.y);
+                bulletObj.Translate(pos.x, pos.y);
 
                 if (bulletObj.LocalTransform.m7 >= GetScreenWidth() || bulletObj.LocalTransform.m8 >= GetScreenHeight())
                 {
@@ -119,47 +118,40 @@ namespace GraphicalDemo
                 {
                     core_basic_window.bulletFiring = false;
                 }
-
-                bulletObj.Rotate(0);
+                
                 bulletObj.Draw();
             }
 
-            // rotate player counter clockwise
+            // WANTED movie bullet physics
+            // rotate bullet counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_A))
             {
                 bulletObj.Rotate(-deltaTime);
 
-
             }
-            // rotates player clockwise
+            // rotates bullet clockwise
             if (IsKeyDown(KeyboardKey.KEY_D))
             {
                 bulletObj.Rotate(deltaTime);
 
             }
-            // rotates turret counter clockwise
+            // rotates bullet counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_Q))
             {
                 bulletObj.Rotate(-deltaTime);
 
-
             }
-            // rotates turret clockwise
+            // rotates bullet clockwise
             if (IsKeyDown(KeyboardKey.KEY_E))
             {
                 bulletObj.Rotate(deltaTime);
-
             }
-
         }
 
-
-        // draws object loaded
+        // draws bullet loaded
         public override void OnDraw()
-        {
-            
+        {            
             bulletObj.Draw();
         }
-
     }
 }

@@ -12,17 +12,25 @@ namespace GraphicalDemo
 {
     class Game
     {
-        
+
         // stop update/ stopwatch
         public void Shutdown()
         {
-
+            CloseWindow();
         }
 
-        // update for getting current framerate
+        // checks for keyboard input to close game
         public void Update()
         {
-                      
+            if (IsKeyPressed(KeyboardKey.KEY_ESCAPE))
+            {
+                CloseWindow();
+            }
+            if (IsKeyPressed(KeyboardKey.KEY_X))
+            {
+                CloseWindow();
+            }
+
         }
 
         // draws current framerate
@@ -30,9 +38,8 @@ namespace GraphicalDemo
         {
             BeginDrawing();
 
-            ClearBackground(Color.WHITE);
+            ClearBackground(Color.LIGHTGRAY);
                         
-
             EndDrawing();
         }
     }

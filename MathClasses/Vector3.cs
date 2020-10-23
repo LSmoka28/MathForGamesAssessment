@@ -86,14 +86,13 @@ namespace MathClasses
             this.z /= m;
         }
 
-
+        // Normalise a vector
         public Vector3 GetNormalised()
         {
             return this / Magnitude();
         }
 
-
-        // method to get dot prodcut of  Vector3
+        // method to get dot prodcut of Vector3
         public float Dot(Vector3 rhs)
         {
             return x * rhs.x + y * rhs.y + z * rhs.z;
@@ -105,6 +104,7 @@ namespace MathClasses
             return new Vector3(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x);
         }
 
+        // multiplication operator for a Matrix3 and Vector3
         public static Vector3 operator *(Matrix3 lhs, Vector3 rhs)
         {
             return new Vector3((lhs.m1 * rhs.x) + (lhs.m4* rhs.y) + (lhs.m7 * rhs.z),

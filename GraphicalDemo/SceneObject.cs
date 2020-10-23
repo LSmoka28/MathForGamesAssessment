@@ -10,14 +10,14 @@ namespace GraphicalDemo
 {
     public class SceneObject
     {
+        // set parent to none when first declared
         protected SceneObject parent = null;
         protected List<SceneObject> children = new List<SceneObject>();
 
+        // custom Matric class holding position
         protected Matrix3 localTransform = new Matrix3();
         protected Matrix3 globalTransform = new Matrix3();
-
         
-
         // matrix3 local
         public Matrix3 LocalTransform
         {
@@ -124,7 +124,6 @@ namespace GraphicalDemo
                 child.Draw();
             }
         }
-
 
         // update global transform and mulitply by local to move, set equal if not moved
         public void UpdateTransform()

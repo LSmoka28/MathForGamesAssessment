@@ -12,7 +12,7 @@ namespace GraphicalDemo
     {
         // add member variable for Texture
         Texture2D texture = new Texture2D();
-        Image image = new Image();
+        //Image image = new Image();
 
         // gets width of texture
         public float Width
@@ -25,6 +25,7 @@ namespace GraphicalDemo
         {
             get { return texture.height; }
         }
+
         // blank sprite
         public SpriteObject()
         {

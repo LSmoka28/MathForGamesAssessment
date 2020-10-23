@@ -16,15 +16,14 @@ namespace MathClasses
         {
             //left blank
         }
-
-        // convert from MathCal
-        // convert from MathClasses.Vector to System Vector
+      
+        // convert from MathClasses.Vector to System Vector2
         public static implicit operator System.Numerics.Vector2(Vector2 source)
         {
             return new System.Numerics.Vector2(source.x, source.y);
         }
 
-        // convert from System.Numerics to math type
+        // convert from System.Numerics to MathClasses Vector2
         public static implicit operator Vector2(System.Numerics.Vector2 source)
         {
             return new Vector2(source.X, source.Y);
