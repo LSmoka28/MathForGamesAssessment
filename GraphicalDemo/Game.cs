@@ -12,7 +12,6 @@ namespace GraphicalDemo
 {
     class Game
     {
-
         // stop update/ stopwatch
         public void Shutdown()
         {
@@ -22,14 +21,16 @@ namespace GraphicalDemo
         // checks for keyboard input to close game
         public void Update()
         {
-            if (IsKeyPressed(KeyboardKey.KEY_ESCAPE))
-            {
-                CloseWindow();
-            }
-            if (IsKeyPressed(KeyboardKey.KEY_X))
-            {
-                CloseWindow();
-            }
+            //if (IsKeyPressed(KeyboardKey.KEY_ESCAPE))
+            //{
+            //    EndDrawing();
+            //    CloseWindow();
+            //}
+            //if (IsKeyPressed(KeyboardKey.KEY_X))
+            //{
+            //    EndDrawing();
+            //    CloseWindow();
+            //}
 
         }
 

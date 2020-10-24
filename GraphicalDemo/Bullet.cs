@@ -33,6 +33,7 @@ namespace GraphicalDemo
         public static float direction = 2;
         Vector3 velocityOfBullet = new Vector3(speed, direction, 1);
 
+
         // create uninitialized tank
         public Bullet()
         {
@@ -72,17 +73,18 @@ namespace GraphicalDemo
         {
             // press "SPACEBAR" to shoot bullets out of tank barrel
             if (IsKeyPressed(KeyboardKey.KEY_SPACE))
-            {                
-                // shoot bullet, no array
-                // set bullet firing to true after hitting space if false
+            {
+
+                //shoot bullet, no array
+                //set bullet firing to true after hitting space if false
                 if (!core_basic_window.bulletFiring)
-                {                    
-                    core_basic_window.bulletFiring = true;
+                {
+                     core_basic_window.bulletFiring = true;
                 }
 
-                // set/start shooting position of bullet at turrets x and y
+                // set / start shooting position of bullet at turrets x and y
                 bulletObj.SetPosition(Tank.turretObject.GlobalTransform.m7, Tank.turretObject.GlobalTransform.m8 - 5);
-                
+
                 //// shooting with an array - work in progress 
                 //for (int i = 0; i < 5; i++)
                 //{
@@ -103,6 +105,8 @@ namespace GraphicalDemo
                 //}
 
             }
+
+            // fire bullet when true/ after space bar is hit
             if (core_basic_window.bulletFiring)
             {
                 Vector3 pos = new Vector3(bulletObj.LocalTransform.m1 * (velocityOfBullet.x * velocityOfBullet.y), bulletObj.LocalTransform.m2 * (velocityOfBullet.x * velocityOfBullet.y), 1) * (deltaTime);
@@ -112,39 +116,41 @@ namespace GraphicalDemo
                 if (bulletObj.LocalTransform.m7 >= GetScreenWidth() || bulletObj.LocalTransform.m8 >= GetScreenHeight())
                 {
                     core_basic_window.bulletFiring = false;
-                    
+
                 }
-                if(bulletObj.LocalTransform.m7 <= 0 || bulletObj.LocalTransform.m8 <= 0 )
+                if (bulletObj.LocalTransform.m7 <= 0 || bulletObj.LocalTransform.m8 <= 0)
                 {
                     core_basic_window.bulletFiring = false;
                 }
-                
+
                 bulletObj.Draw();
             }
+
+            // 1 2 4 5 rotate storage
 
             // WANTED movie bullet physics
             // rotate bullet counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_A))
             {
-                bulletObj.Rotate(-deltaTime);
+                bulletObj.Rotate(-deltaTime * 2);
 
             }
             // rotates bullet clockwise
             if (IsKeyDown(KeyboardKey.KEY_D))
             {
-                bulletObj.Rotate(deltaTime);
+                bulletObj.Rotate(deltaTime * 2);
 
             }
             // rotates bullet counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_Q))
             {
-                bulletObj.Rotate(-deltaTime);
+                bulletObj.Rotate(-deltaTime * 2);
 
             }
             // rotates bullet clockwise
             if (IsKeyDown(KeyboardKey.KEY_E))
             {
-                bulletObj.Rotate(deltaTime);
+                bulletObj.Rotate(deltaTime * 2);
             }
         }
 

@@ -107,13 +107,15 @@ namespace Examples
             while (!WindowShouldClose())    // Detect window close button or ESC key
             {
                 // Update
-                float deltaTime = timer.DeltaTime;
-
                 //----------------------------------------------------------------------------------
+
+                float deltaTime = timer.DeltaTime;
                 
                 timer.Update();
                 player.OnUpdate(deltaTime);
                 bullet.OnUpdate(deltaTime);
+
+                game.Update();
 
                 // check for collision point inside rectangle
                 if (bulletFiring && CheckCollisionPointRec(new MathClasses.Vector2(Bullet.bulletObj.LocalTransform.m7, Bullet.bulletObj.LocalTransform.m8), rect) == true)
