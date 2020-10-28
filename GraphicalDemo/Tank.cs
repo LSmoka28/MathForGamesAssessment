@@ -42,14 +42,14 @@ namespace GraphicalDemo
             //load tank
             tankSprite.Load(tankImageFilePath);
             // flip the tank 90 deg
-            tankSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
+            tankSprite.SetRotate(90 * (float)(Math.PI / 180.0f));
             // set an offset fo that it has a center
             tankSprite.SetPosition(-tankSprite.Width / 2.0f, tankSprite.Height / 2.0f);
 
             // load turret
             turretSprite.Load(turretImageFilePath);
             // rotate 90 deg
-            turretSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
+            turretSprite.SetRotate(90 * (float)(Math.PI / 180.0f));
             // set offset for center point
             turretSprite.SetPosition(0, turretSprite.Width / 2.0f);
 
@@ -70,12 +70,12 @@ namespace GraphicalDemo
             // rotate object counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_A))
             {
-                tankObject.Rotate(-deltaTime * 2);
+                tankObject.Rotate(deltaTime * 2);
             }
             // rotates object clockwise
             if (IsKeyDown(KeyboardKey.KEY_D))
             {
-                tankObject.Rotate(deltaTime *2);               
+                tankObject.Rotate(-deltaTime *2);               
             }
             // moves object forward
             if (IsKeyDown(KeyboardKey.KEY_W))
@@ -92,12 +92,12 @@ namespace GraphicalDemo
             // rotates turret counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_Q))
             {
-                turretObject.Rotate(-deltaTime * 2);
+                turretObject.Rotate(deltaTime * 2);
             }
             // rotates turret clockwise
             if (IsKeyDown(KeyboardKey.KEY_E))
             {
-                turretObject.Rotate(deltaTime * 2);
+                turretObject.Rotate(-deltaTime * 2);
             }
 
             // resets tank position to correct opposite side of player exited window

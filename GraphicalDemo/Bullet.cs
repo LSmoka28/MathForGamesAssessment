@@ -46,7 +46,7 @@ namespace GraphicalDemo
             // load file path specified
             bulletSpr.Load(bulletImageFilePath);
             // rotate to match correct facing direction of tank
-            bulletSpr.SetRotate(90 * (float)(Math.PI / 180.0f));
+            bulletSpr.SetRotate(-90 * (float)(Math.PI / 180.0f));
             // set pivot point
             bulletSpr.SetPosition(bulletSpr.Width /2.0f, 0);
 
@@ -132,25 +132,25 @@ namespace GraphicalDemo
             // rotate bullet counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_A))
             {
-                bulletObj.Rotate(-deltaTime * 2);
+                bulletObj.Rotate(deltaTime * 2);
 
             }
             // rotates bullet clockwise
             if (IsKeyDown(KeyboardKey.KEY_D))
             {
-                bulletObj.Rotate(deltaTime * 2);
+                bulletObj.Rotate(-deltaTime * 2);
 
             }
             // rotates bullet counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_Q))
             {
-                bulletObj.Rotate(-deltaTime * 2);
+                bulletObj.Rotate(deltaTime * 2);
 
             }
             // rotates bullet clockwise
             if (IsKeyDown(KeyboardKey.KEY_E))
             {
-                bulletObj.Rotate(deltaTime * 2);
+                bulletObj.Rotate(-deltaTime * 2);
             }
         }
 
