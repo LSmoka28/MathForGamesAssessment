@@ -130,8 +130,8 @@ namespace MathClasses
         public void SetRotateX(double radians)
         {
             m1 = 1; m2 = 0; m3 = 0; m4 = 0;
-            m5 = 0; m6 = (float)Math.Cos(radians); m7 = (float)Math.Sin(radians); m8 = 0;
-            m9 = 0; m10 = (float)-Math.Sin(radians); m11 = (float)Math.Cos(radians); m12 = 0;
+            m5 = 0; m6 = (float)Math.Cos(radians); m7 = (float)-Math.Sin(radians); m8 = 0;
+            m9 = 0; m10 = (float)Math.Sin(radians); m11 = (float)Math.Cos(radians); m12 = 0;
             m13 = 0; m14 = 0; m15 = 0; m16 = 1;
         }
         // rotates y and z according to the Sin and Cos of the radian specified
@@ -145,9 +145,9 @@ namespace MathClasses
         // Rotates counter-clockwise on the y-axis
         public void SetRotateY(double radians)
         {
-            Set((float)Math.Cos(radians), 0, (float)-Math.Sin(radians), 0,
+            Set((float)Math.Cos(radians), 0, (float)Math.Sin(radians), 0,
                 0, 1, 0, 0,
-                (float)Math.Sin(radians), 0, (float)Math.Cos(radians), 0,
+                (float)-Math.Sin(radians), 0, (float)Math.Cos(radians), 0,
                 0, 0, 0, 1);
         }
         // rotates x and z according to the Sin and Cos of the radian specified
@@ -161,8 +161,8 @@ namespace MathClasses
         // Rotates counter-clockwise on the z-axis
         public void SetRotateZ(double radians)
         {
-            Set((float)Math.Cos(radians), (float)Math.Sin(radians), 0, 0,
-                (float)-Math.Sin(radians), (float)Math.Cos(radians), 0, 0,
+            Set((float)Math.Cos(radians), (float)-Math.Sin(radians), 0, 0,
+                (float)Math.Sin(radians), (float)Math.Cos(radians), 0, 0,
                 0, 0, 1, 0,
                 0, 0, 0, 1);
         }
