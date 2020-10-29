@@ -37,14 +37,14 @@ namespace Examples
         public const int screenWidth = 800;
         public const int screenHeight = 450;
         public static float speed = 50;
-        public static float direction = 1;
-
-        // bool of active bullets - no more than 5 on the screen at a time
-        public static bool[] bulletActive = { false, false, false, false, false };
+        public static float distance = 1;
 
         // bool for bullet firing
-        public static bool bulletFiring = false;
+        public static bool bulletActive = false;
 
+        public static bool[] magActive = { false, false, false, false, false, false, false, false, false, false };
+
+        public static string bulletFile = @"ref\bulletRedSilver.png";
 
         // main program method
         public static int Main()
@@ -55,10 +55,8 @@ namespace Examples
             // file name variables
             string tankFileName = @"ref\tankBlue_outline.png";
             string turretFileName = @"ref\barrelBlue.png";
-            string bulletFile = @"ref\bulletRedSilver.png";
-            
-            
-            // set Frames-Per-Seconda and window size
+                        
+            // set Frames-Per-Second and window size
             SetTargetFPS(60);
             InitWindow(screenWidth, screenHeight, "Tanks for Everything!");
 
@@ -74,13 +72,14 @@ namespace Examples
             // assign tank in Bullet class to player tank
             Bullet.tank = player;
 
-            // simple score count
+            // simple score start count
             int score = 0;
 
             // color conversion holding box color
             MathClasses.Vector3 colorVecBox = ColorToHSV(Color.ORANGE);
             Color boxColor = ColorFromHSV(colorVecBox);
-
+            
+            // color conversion holding 
             MathClasses.Vector3 colorVecBackground = ColorToHSV(LIGHTGRAY);
             Color backgroundColor = ColorFromHSV(colorVecBackground);
 
@@ -119,14 +118,14 @@ namespace Examples
                 game.Update();
 
                 // check for collision point inside rectangle
-                if (bulletFiring && CheckCollisionPointRec(new MathClasses.Vector2(Bullet.bulletObj.LocalTransform.m7, Bullet.bulletObj.LocalTransform.m8), rect) == true)
+                if (bulletActive && CheckCollisionPointRec(new MathClasses.Vector2(Bullet.bulletObj.LocalTransform.m7, Bullet.bulletObj.LocalTransform.m8), rect) == true)
                 {
 
                     rect.x = random.Next(50, GetScreenWidth() - 50);
                     rect.y = random.Next(50, GetScreenHeight() - 50);
                     score += 1;
 
-                    bulletFiring = false;
+                    bulletActive = false;
 
                     // console log to prove collision
                     Console.WriteLine("Collision Detected");
@@ -148,7 +147,7 @@ namespace Examples
                 DrawRectangle((int)rect.x, (int)rect.y, (int)rect.width, (int)rect.height, boxColor);
                 
                 // end game controls
-                DrawText("Press 'esc' or 'x' key to quit game and close window", 10, 20, 20, RED);
+                DrawText("Press the 'Esc' key to close window", 10, 20, 20, RED);
 
                 // visible text on screen for score, deltaTime, and time since game started
                 DrawText("Time Since Start: " + GetTime().ToString("0.0"), 10, 40, 20, RED);

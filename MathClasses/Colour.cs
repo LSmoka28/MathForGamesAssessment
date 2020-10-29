@@ -23,13 +23,13 @@ namespace MathClasses
             // left intentionally blank
         }
 
-        // Colour construct to accept params for RBGA values and assigns them to their correct bit and combine to get HEXIDECIMAL
+        // Colour construct to accept params for RBGA values and assigns them to their correct bit and combines to get HEXIDECIMAL
         public Colour(byte redV, byte greenV, byte blueV, byte alphaV)
         {           
             colour = (uint)(redV << 24 | greenV << 16 | blueV << 8 | alphaV);
         }
 
-        // returns color after & bitmask and shifts to start
+        // returns color after "&" bitmask and shifts to start
         public byte GetRed()
         {
             return (byte)((colour & 0xff000000) >> 24);           
@@ -42,7 +42,7 @@ namespace MathClasses
             colour |= (UInt32)red << 24;
         }
 
-        // returns color after & bitmask and shifts to start
+        // returns color after "&" bitmask and shifts to start
         public byte GetGreen()
         {
             return (byte)((colour & 0x00ff0000) >> 16);
@@ -54,7 +54,7 @@ namespace MathClasses
             colour |= (UInt32)green << 16;
         }
 
-        // returns color after & bitmask and shifts to start
+        // returns color after "&" bitmask and shifts to start
         public byte GetBlue()
         {
 
@@ -67,7 +67,7 @@ namespace MathClasses
             colour |= (UInt32)blue << 8;
         }
 
-        // returns color after & bitmask and shifts to start
+        // returns value after "&" bitmask and shifts to start
         public byte GetAlpha()
         {
             return (byte)(colour & 0x000000ff);

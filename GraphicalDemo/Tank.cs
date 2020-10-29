@@ -21,8 +21,8 @@ namespace GraphicalDemo
 
         // Vector3 of velocity
         public static float speed = 100;
-        public static float direction = 2;
-        Vector3 velocity = new Vector3(speed, direction, 1);
+        public static float distance = 2;
+        Vector3 velocity = new Vector3(speed, distance, 1);
 
         // create uninitialized tank
         public Tank()
