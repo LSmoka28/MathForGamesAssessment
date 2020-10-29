@@ -52,21 +52,7 @@ namespace GraphicalDemo
 
             // set hierarchy
             bulletObj.AddChild(bulletSpr);
-
-
-            //// load each sprite into array
-            //foreach (SpriteObject bullet in bulletObjects)
-            //{
-
-            //    bulletSpr.Load(bulletImageFilePath);
-
-            //    bullet.SetRotate(90 * (float)(Math.PI / 180.0f));
-
-            //    bullet.SetPosition(0, bulletSpr.Width / 2.0f);
-
-            //    bullet.AddChild(bulletSpr);
-            //}
-
+          
         }
 
         public override void OnUpdate(float deltaTime)
@@ -75,7 +61,7 @@ namespace GraphicalDemo
             if (IsKeyPressed(KeyboardKey.KEY_SPACE))
             {
 
-                //shoot bullet, no array
+                //shoot bullet
                 //set bullet firing to true after hitting space if false
                 if (!core_basic_window.bulletFiring)
                 {
@@ -83,27 +69,9 @@ namespace GraphicalDemo
                 }
 
                 // set / start shooting position of bullet at turrets x and y
-                bulletObj.SetPosition(Tank.turretObject.GlobalTransform.m7, Tank.turretObject.GlobalTransform.m8 - 5);
-
-                //// shooting with an array - work in progress 
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    int shootingBullet = i;
-
-                //    Vector3 pos = new Vector3(bulletObjects[shootingBullet].LocalTransform.m1 * 500, bulletObjects[shootingBullet].LocalTransform.m2 * 500, 1) * deltaTime;
-
-                //    if (!core_basic_window.bulletActive[i])
-                //    {
-
-
-
-                //        core_basic_window.bulletObjects[shootingBullet].SetPosition(Tank.tankObject.LocalTransform.m7, Tank.tankObject.LocalTransform.m8);
-                //        core_basic_window.bulletActive[0] = true;
-
-                //    }
-
-                //}
-
+                bulletObj.SetPosition(Tank.turretObject.GlobalTransform.m7, Tank.turretObject.GlobalTransform.m8);
+                
+                
             }
 
             // fire bullet when true/ after space bar is hit
@@ -132,7 +100,9 @@ namespace GraphicalDemo
             // rotate bullet counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_A))
             {
+                
                 bulletObj.Rotate(deltaTime * 2);
+                
 
             }
             // rotates bullet clockwise

@@ -57,6 +57,7 @@ namespace Examples
             string turretFileName = @"ref\barrelBlue.png";
             string bulletFile = @"ref\bulletRedSilver.png";
             
+            
             // set Frames-Per-Seconda and window size
             SetTargetFPS(60);
             InitWindow(screenWidth, screenHeight, "Tanks for Everything!");
@@ -83,7 +84,7 @@ namespace Examples
             MathClasses.Vector3 colorVecBackground = ColorToHSV(LIGHTGRAY);
             Color backgroundColor = ColorFromHSV(colorVecBackground);
 
-
+            
 
             //--------------------------------------------------------------------------------------
             
@@ -131,7 +132,7 @@ namespace Examples
                     Console.WriteLine("Collision Detected");
 
                 }
-
+              
                 //----------------------------------------------------------------------------------
                 // Draw
                 //----------------------------------------------------------------------------------
@@ -153,8 +154,13 @@ namespace Examples
                 DrawText("Time Since Start: " + GetTime().ToString("0.0"), 10, 40, 20, RED);
                 DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.000000"), 10, 60, 20, RED);
                 DrawText("Targets Hit: " + score.ToString("0"), 10, 80, 20, RED);
-             
+
+
                 
+
+
+
+
                 EndDrawing();
                 //----------------------------------------------------------------------------------
             }
