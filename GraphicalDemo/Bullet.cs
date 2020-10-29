@@ -95,33 +95,7 @@ namespace GraphicalDemo
             }
 
             // 1 2 4 5 rotate storage
-
-            // WANTED movie bullet physics
-            // rotate bullet counter clockwise
-            if (IsKeyDown(KeyboardKey.KEY_A))
-            {
-                
-                bulletObj.Rotate(deltaTime * 2);
-                
-
-            }
-            // rotates bullet clockwise
-            if (IsKeyDown(KeyboardKey.KEY_D))
-            {
-                bulletObj.Rotate(-deltaTime * 2);
-
-            }
-            // rotates bullet counter clockwise
-            if (IsKeyDown(KeyboardKey.KEY_Q))
-            {
-                bulletObj.Rotate(deltaTime * 2);
-
-            }
-            // rotates bullet clockwise
-            if (IsKeyDown(KeyboardKey.KEY_E))
-            {
-                bulletObj.Rotate(-deltaTime * 2);
-            }
+            
         }
 
         // draws bullet loaded
