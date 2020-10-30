@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathClasses", "MathClasses\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{2731BE78-C467-4E92-9381-4F6B9EA68963}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicalDemo", "GraphicalDemo\GraphicalDemo.csproj", "{002315EC-4741-4E65-86E0-900AA3151AE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicalDemo", "GraphicalDemo\GraphicalDemo.csproj", "{002315EC-4741-4E65-86E0-900AA3151AE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
