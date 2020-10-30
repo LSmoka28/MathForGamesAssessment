@@ -34,17 +34,35 @@ namespace Examples
 {
     public class core_basic_window
     {
+        // game window measurements 
         public const int screenWidth = 800;
         public const int screenHeight = 450;
-        public static float speed = 50;
-        public static float distance = 1;
 
-        // bool for bullet firing
-        public static bool bulletActive = false;
 
-        public static bool[] magActive = { false, false, false, false, false, false, false, false, false, false };
-
+        // bullet file path name
         public static string bulletFile = @"ref\bulletRedSilver.png";
+
+        // create new rectangle and assign proper value
+        public static Rectangle rect = new Rectangle
+        {
+            x = GetScreenWidth() / 4,
+            y = GetScreenHeight() / 4,
+            width = 60,
+            height = 60
+        };
+
+        // simple score start count
+        public static int score = 0;
+        // bullet tracker
+        public static int amountOfBulletsFired = 0;
+
+
+        // initialize random
+        public static Random random = new Random();
+
+        // color conversion holding box color
+        public static MathClasses.Vector3 colorVecBox = ColorToHSV(Color.ORANGE);
+        public static Color boxColor = ColorFromHSV(colorVecBox);
 
         // main program method
         public static int Main()
@@ -55,10 +73,13 @@ namespace Examples
             // file name variables
             string tankFileName = @"ref\tankBlue_outline.png";
             string turretFileName = @"ref\barrelBlue.png";
+
+            
+           
                         
+            InitWindow(screenWidth, screenHeight, "Tanks for Everything!");
             // set Frames-Per-Second and window size
             SetTargetFPS(60);
-            InitWindow(screenWidth, screenHeight, "Tanks for Everything!");
 
             // initialize classes
             Timer timer = new Timer();
@@ -66,43 +87,29 @@ namespace Examples
             Tank player = new Tank();
             Bullet bullet = new Bullet();
 
-            // initialize random
-            Random random = new Random();
-
+            //set array of bullets and assign index
+            Bullet[] rockets = new Bullet[10];
+            for(int i = 0; i < rockets.Length; ++i)
+            {
+                rockets[i] = new Bullet();
+                rockets[i].LoadAmmo(bulletFile);
+            }
+            
             // assign tank in Bullet class to player tank
             Bullet.tank = player;
 
-            // simple score start count
-            int score = 0;
-
-            // color conversion holding box color
-            MathClasses.Vector3 colorVecBox = ColorToHSV(Color.ORANGE);
-            Color boxColor = ColorFromHSV(colorVecBox);
-            
             // color conversion holding 
             MathClasses.Vector3 colorVecBackground = ColorToHSV(LIGHTGRAY);
             Color backgroundColor = ColorFromHSV(colorVecBackground);
-
-            // TODO: Add to git test
-
-            //--------------------------------------------------------------------------------------
             
-            // load player tank image
+            // load player tank image and turret image
             player.Setup(tankFileName, turretFileName);
 
             // load bullet image
             bullet.LoadAmmo(bulletFile);
 
-            // create new rectangle and assign proper value
-            Rectangle rect = new Rectangle
-            {
-                x = GetScreenWidth() / 4,
-                y = GetScreenHeight() / 4,
-                width = 60,
-                height = 60
-            };
-
-
+            //--------------------------------------------------------------------------------------
+            
             // Main game loop
             while (!WindowShouldClose())    // Detect window close button or ESC key
             {
@@ -114,24 +121,40 @@ namespace Examples
                 timer.Update();
                 player.OnUpdate(deltaTime);
                 bullet.OnUpdate(deltaTime);
-
-                game.Update();
-
-                // check for collision point inside rectangle
-                if (bulletActive && CheckCollisionPointRec(new MathClasses.Vector2(Bullet.bulletObj.LocalTransform.m7, Bullet.bulletObj.LocalTransform.m8), rect) == true)
+                //update each rocket in the array
+                foreach(Bullet rock in rockets)
                 {
-
-                    rect.x = random.Next(50, GetScreenWidth() - 50);
-                    rect.y = random.Next(50, GetScreenHeight() - 50);
-                    score += 1;
-
-                    bulletActive = false;
-
-                    // console log to prove collision
-                    Console.WriteLine("Collision Detected");
-
+                    rock.OnUpdate(deltaTime);
                 }
-              
+
+                // press "SPACEBAR" to shoot bullets out of tank barrel
+                if (IsKeyPressed(KeyboardKey.KEY_SPACE))
+                {                 
+                    foreach(Bullet rock in rockets)
+                    {                        
+                        if(!rock.bulletActive)
+                        {
+                            // set bullet to active 
+                            rock.bulletActive = true;
+                           
+                            // set rotate will reset position and scale values
+                            rock.bulletObj.SetRotate(0.0f);
+
+                            // set / start shooting position of bullet at turrets x and y after rotation reset
+                            rock.bulletObj.SetPosition(Tank.turretObject.GlobalTransform.m7, Tank.turretObject.GlobalTransform.m8);
+
+                            // get the rotation of the turret and fire in that direction
+                            float firingAngle = (float)Math.Atan2(Tank.turretObject.GlobalTransform.m2, Tank.turretObject.GlobalTransform.m1);
+                            rock.bulletObj.Rotate(-firingAngle);
+
+                            amountOfBulletsFired ++;
+
+                            break;
+                        }  
+                    }
+                }
+
+
                 //----------------------------------------------------------------------------------
                 // Draw
                 //----------------------------------------------------------------------------------
@@ -139,27 +162,27 @@ namespace Examples
                 BeginDrawing();
 
                 ClearBackground(backgroundColor);
-               
+
                 // draws images to screen 
-                player.OnDraw();
+                bullet.Draw();
+                foreach(Bullet rock in rockets)
+                {
+                    rock.Draw();
+                }
+                player.Draw();
+
                 
-                // draw rectangle to screen
-                DrawRectangle((int)rect.x, (int)rect.y, (int)rect.width, (int)rect.height, boxColor);
+                
                 
                 // end game controls
                 DrawText("Press the 'Esc' key to close window", 10, 20, 20, RED);
 
-                // visible text on screen for score, deltaTime, and time since game started
+                // screen text for score, deltaTime, and time since game started
                 DrawText("Time Since Start: " + GetTime().ToString("0.0"), 10, 40, 20, RED);
                 DrawText("DeltaTime: " + timer.DeltaTime.ToString("0.000000"), 10, 60, 20, RED);
-                DrawText("Targets Hit: " + score.ToString("0"), 10, 80, 20, RED);
-
-
-                
-
-
-
-
+                DrawText("Targets Hit: " + score.ToString("0"), 600, 20, 20, BLUE);
+                DrawText("Bullets Fired: " + amountOfBulletsFired.ToString("0"), 600, 40, 20, BLUE);
+               
                 EndDrawing();
                 //----------------------------------------------------------------------------------
             }

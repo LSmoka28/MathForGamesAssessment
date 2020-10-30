@@ -12,17 +12,14 @@ Ctrl + Shift + B should build the project with no extra steps required.
 
 Controls and Instructions:
 Use your keyboard to control the tank and turret
-Tank Controls:
+Tank and Turret Controls:
 W: moves the tank "forwards" according to its rotation
 S: moves the tank "backwards" according to its rotation
 A: rotates the tank and turret counter clockwise 
 D: rotates the tank and turret clockwise 
-Spacebar: Shoots a bullet in the direction the turret is pointed  
-Hint: *only one bullet may be fired at a time*
-
-Turret Controls:
 Q: rotates the turret counter-clockwise
 E: rotates the turret clockwise
+Spacebar: Shoots a bullet in the direction the turret is pointed  
 
 Link to GitHub Repository:
 https://github.com/LSmoka28/MathForGamesAssessment

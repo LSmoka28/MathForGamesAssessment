@@ -9,13 +9,13 @@ using static Raylib_cs.Raylib;
 
 
 namespace GraphicalDemo
-{
+{  
     class Bullet : SpriteObject
     {
-        // TODO: Fix firirng direction of bullet 
+
 
         // new SceneObject for tank parent and a child tank SpriteObject
-        public static SceneObject bulletObj = new SceneObject();
+        public SceneObject bulletObj = new SceneObject();
         SpriteObject bulletSpr = new SpriteObject();
 
         // timer instance to check deltaTime
@@ -29,9 +29,7 @@ namespace GraphicalDemo
         public static float distance = 2;
         Vector3 velocityOfBullet = new Vector3(speed, distance, 1);
 
-        public static SceneObject[] bullets = new SceneObject[10];
-        SpriteObject[] bulletsSprites = new SpriteObject[10];
-
+        public bool bulletActive = false;
 
         // create uninitialized bullet
         public Bullet()
@@ -53,31 +51,11 @@ namespace GraphicalDemo
 
         }
 
+        // check for these on bullet update 
         public override void OnUpdate(float deltaTime)
         {
-            // press "SPACEBAR" to shoot bullets out of tank barrel
-            if (IsKeyPressed(KeyboardKey.KEY_SPACE))
-            {
-                //shoot bullet
-                //set bullet firing to true after hitting space if false
-                if (!core_basic_window.bulletActive)
-                {
-                     core_basic_window.bulletActive = true;
-                }
-
-                // set rotate will reset your position and scale values
-                bulletObj.SetRotate(0.0f);
-           
-                // set / start shooting position of bullet at turrets x and y after rotation reset
-                bulletObj.SetPosition(Tank.turretObject.GlobalTransform.m7, Tank.turretObject.GlobalTransform.m8);
-
-                // get the rotation of the tank and fire in that direction
-                float firingAngle = (float)Math.Atan2(Tank.turretObject.GlobalTransform.m2, Tank.turretObject.GlobalTransform.m1);
-                bulletObj.Rotate(-firingAngle);
-                
-            }
             // fire bullet if true/ after space bar is hit
-            if (core_basic_window.bulletActive)
+            if (bulletActive)
             {
                 Vector3 pos = new Vector3(bulletObj.LocalTransform.m1 * (velocityOfBullet.x * velocityOfBullet.y), bulletObj.LocalTransform.m2 * (velocityOfBullet.x * velocityOfBullet.y), 1) * (deltaTime);
 
@@ -86,71 +64,40 @@ namespace GraphicalDemo
                 // remove bullet if collidied with edge of window
                 if (bulletObj.LocalTransform.m7 >= GetScreenWidth() || bulletObj.LocalTransform.m8 >= GetScreenHeight())
                 {
-                    core_basic_window.bulletActive = false;
+                    bulletActive = false;
 
                 }
                 if (bulletObj.LocalTransform.m7 <= 0 || bulletObj.LocalTransform.m8 <= 0)
                 {
-                    core_basic_window.bulletActive = false;
+                    bulletActive = false;
                 }
-
-                bulletObj.Draw();
             }
 
-            if (IsKeyPressed(KeyboardKey.KEY_J))
+            // check collsion with rectangle object 
+            if (bulletActive && CheckCollisionPointRec(new Vector2(bulletObj.LocalTransform.m7, bulletObj.LocalTransform.m8), core_basic_window.rect) == true)
             {
-                for (int i = 0; i < 10; i++)
-                {
 
-                    foreach(SpriteObject ammo in bulletsSprites)
-                    {
-                        bulletsSprites[i] = ammo;
+                core_basic_window.rect.x = core_basic_window.random.Next(50, GetScreenWidth() - 50);
+                core_basic_window.rect.y = core_basic_window.random.Next(50, GetScreenHeight() - 50);
+                core_basic_window.score += 1;
 
-                        ammo.Load(core_basic_window.bulletFile);
+                bulletActive = false;
 
-                        ammo.SetRotate(-90 * (float)(Math.PI / 180.0f));
-
-                        ammo.SetPosition(bulletSpr.Width / 2.0f, 0);
-                    }
-
-
-                    if (!core_basic_window.magActive[i])
-                    {
-                        int magSlot = i;
-
-                        bullets[magSlot].Rotate(0);
-
-                        Vector3 pos = new Vector3(bullets[magSlot].LocalTransform.m1 * (velocityOfBullet.x * velocityOfBullet.y), bullets[magSlot].LocalTransform.m2 * (velocityOfBullet.x * velocityOfBullet.y), 1) * (deltaTime);
-
-                        bullets[magSlot].Translate(pos.x, pos.y);
-
-                        bullets[magSlot].Draw();
-
-
-                        if (bullets[magSlot].LocalTransform.m7 >= GetScreenWidth() || bullets[magSlot].LocalTransform.m8 >= GetScreenHeight())
-                        {
-                            core_basic_window.magActive[i] = false;
-
-                        }
-                        if (bullets[magSlot].LocalTransform.m7 <= 0 || bullets[magSlot].LocalTransform.m8 <= 0)
-                        {
-                            core_basic_window.magActive[i] = false;
-                        }
-                    }
-                }
-                
-
+                // console log to prove collision
+                Console.WriteLine("Collision Detected");
+              
             }
-
-
-
-
+            // draw rectangle to screen
+            DrawRectangle((int)core_basic_window.rect.x, (int)core_basic_window.rect.y, (int)core_basic_window.rect.width, (int)core_basic_window.rect.height, core_basic_window.boxColor);
         }
 
         // draws bullet loaded
         public override void OnDraw()
-        {            
-            bulletObj.Draw();
+        {
+            if (bulletActive)
+            {
+                bulletObj.Draw();
+            }
         }
     }
 }

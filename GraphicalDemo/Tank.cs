@@ -92,12 +92,12 @@ namespace GraphicalDemo
             // rotates turret counter clockwise
             if (IsKeyDown(KeyboardKey.KEY_Q))
             {
-                turretObject.Rotate(deltaTime * 2);
+                turretObject.Rotate(deltaTime * 1.5f);
             }
             // rotates turret clockwise
             if (IsKeyDown(KeyboardKey.KEY_E))
             {
-                turretObject.Rotate(-deltaTime * 2);
+                turretObject.Rotate(-deltaTime * 1.5f);
             }
 
             // resets tank position to correct opposite side of player exited window
