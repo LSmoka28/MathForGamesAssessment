@@ -12,8 +12,6 @@ namespace GraphicalDemo
 {  
     class Bullet : SpriteObject
     {
-
-
         // new SceneObject for tank parent and a child tank SpriteObject
         public SceneObject bulletObj = new SceneObject();
         SpriteObject bulletSpr = new SpriteObject();
@@ -49,7 +47,6 @@ namespace GraphicalDemo
             bulletSpr.SetPosition(bulletSpr.Width / 2.0f, 0);
             //set hierarchy
             bulletObj.AddChild(bulletSpr);
-
         }
 
         // check for these on bullet update 
@@ -66,7 +63,6 @@ namespace GraphicalDemo
                 if (bulletObj.LocalTransform.m7 >= GetScreenWidth() || bulletObj.LocalTransform.m8 >= GetScreenHeight())
                 {
                     bulletActive = false;
-
                 }
                 if (bulletObj.LocalTransform.m7 <= 0 || bulletObj.LocalTransform.m8 <= 0)
                 {
