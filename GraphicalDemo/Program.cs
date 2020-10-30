@@ -73,10 +73,7 @@ namespace Examples
             // file name variables
             string tankFileName = @"ref\tankBlue_outline.png";
             string turretFileName = @"ref\barrelBlue.png";
-
-            
-           
-                        
+                                          
             InitWindow(screenWidth, screenHeight, "Tanks for Everything!");
             // set Frames-Per-Second and window size
             SetTargetFPS(60);
