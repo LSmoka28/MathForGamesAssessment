@@ -148,7 +148,7 @@ namespace MathClasses
             Set(this * rot);
         }
 
-        // TODO: figure out what Euler is for and how it implements
+        // gets angles from origin points - more research to see how this is implemented
         public void SetEuler(float pitch, float yaw, float roll)
         {
             Matrix3 x = new Matrix3();
@@ -170,16 +170,13 @@ namespace MathClasses
             m9 = 1;
         }
 
+        // translate offset
         public void Translate(float x, float y)
         {
-            // apply vector offset
+            
             m7 += x;
             m8 += y;            
         }
-
-
-
-
 
         //Matrix3 multiplication operator for two matrices, column major
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)

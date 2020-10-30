@@ -29,6 +29,7 @@ namespace GraphicalDemo
         public static float distance = 2;
         Vector3 velocityOfBullet = new Vector3(speed, distance, 1);
 
+        // used to draw bullet if true
         public bool bulletActive = false;
 
         // create uninitialized bullet

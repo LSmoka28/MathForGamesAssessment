@@ -143,7 +143,7 @@ namespace GraphicalDemo
             }
         }
 
-        #region TransformChanges
+        #region TransformChangesUsingMathClasses
         public void SetPosition(float x, float y)
         {
             localTransform.SetTranslation(x, y);

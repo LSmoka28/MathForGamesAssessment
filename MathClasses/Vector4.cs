@@ -88,7 +88,7 @@ namespace MathClasses
                                (lhs.m4 * rhs.x) + (lhs.m8 * rhs.y) + (lhs.m12 * rhs.z) + (lhs.m16 * rhs.w));
         }
 
-        // method for getting mag of vector4
+        // method for getting mag of Vector4
         public float Magnitude()
         {
             return (float)Math.Sqrt(x * x + y * y + z * z + w * w);

@@ -147,6 +147,7 @@ namespace Examples
                             float firingAngle = (float)Math.Atan2(Tank.turretObject.GlobalTransform.m2, Tank.turretObject.GlobalTransform.m1);
                             rock.bulletObj.Rotate(-firingAngle);
 
+                            // add 1 to "firing" count each time
                             amountOfBulletsFired ++;
 
                             break;

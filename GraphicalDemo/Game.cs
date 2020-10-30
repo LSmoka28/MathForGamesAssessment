@@ -19,13 +19,6 @@ namespace GraphicalDemo
             CloseWindow();
         }
 
-        // checks for keyboard input to close game
-        public void Update()
-        {
-            
-
-        }
-
         // draws current framerate
         public void Draw()
         {

@@ -12,7 +12,6 @@ namespace GraphicalDemo
     {
         // add member variable for Texture
         Texture2D texture = new Texture2D();
-        //Image image = new Image();
 
         // gets width of texture
         public float Width
