@@ -169,11 +169,8 @@ namespace Examples
                 {
                     rock.Draw();
                 }
-                player.Draw();
-
-                
-                
-                
+                player.Draw();                
+                               
                 // end game controls
                 DrawText("Press the 'Esc' key to close window", 10, 20, 20, RED);
 
